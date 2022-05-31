@@ -1,0 +1,21 @@
+{
+  "name": "stargazer-wallet-demos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/StardustCollective/stargazer-wallet-demos",
+  "author": "Stardust Collective <info@stardustcollective.org>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "^16.13.1"
+  },
+  "workspaces": [
+    "stargazer-connector",
+    "base",
+    "erc-20-transfer-demo",
+    "eth-transfer-demo"
+  ],
+  "dependencies": {
+    "create-react-app": "^5.0.1"
+  }
+}
