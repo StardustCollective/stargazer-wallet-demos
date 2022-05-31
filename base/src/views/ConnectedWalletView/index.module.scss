@@ -1,0 +1,10 @@
+@import '@/src/common/styles/theme.scss';
+@import '@/src/common/styles/card.scss';
+
+.main {
+  width: 100%;
+  padding: 20px;
+
+  position: sticky;
+  top: 10px;
+}
