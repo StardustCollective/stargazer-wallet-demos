@@ -15,11 +15,11 @@ import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
 import {StargazerConnector} from 'stargazer-connector';
 
-import {useWeb3React} from '@/src/utils';
+import {useWeb3React} from 'src/utils';
+import {BaseColor} from 'src/common/consts';
 
 import signMessageText from './signMessage.text.ts';
 import styles from './index.module.scss';
-import {BaseColor} from '@/src/common/consts';
 
 const EthSignMessageView = () => {
   const {account, connector} = useWeb3React();

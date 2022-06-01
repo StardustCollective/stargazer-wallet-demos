@@ -24,5 +24,5 @@ module.exports = override(
     test: /\.text\..+$/,
     type: 'asset/source'
   }),
-  addWebpackAlias({'@': path.resolve(__dirname)})
+  addWebpackAlias({src: path.resolve(__dirname, 'src')})
 );

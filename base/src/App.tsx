@@ -2,18 +2,18 @@ import {MantineProvider, Container, Grid, ScrollArea, Stack} from '@mantine/core
 import {Web3ReactProvider} from '@web3-react/core';
 import cls from 'classnames';
 
-import {getWeb3Library} from '@/src/utils';
-import {BaseColor} from '@/src/common/consts';
-import {Header} from '@/src/common/components';
+import {getWeb3Library} from 'src/utils';
+import {BaseColor} from 'src/common/consts';
+import {Header} from 'src/common/components';
 
-import {ConnectedWalletView} from '@/src/views/ConnectedWalletView';
-import {ConnectWalletView} from '@/src/views/ConnectWalletView';
-import {DagSignMessageView} from '@/src/views/DagSignMessageView';
-import {EthSignMessageView} from '@/src/views/EthSignMessageView';
-import {EthTransferView} from '@/src/views/EthTransferView';
-import {Erc20TransferView} from '@/src/views/Erc20TransferView';
-import {Erc20ReadCallView} from '@/src/views/Erc20ReadCallView';
-import {Erc20WriteCallView} from '@/src/views/Erc20WriteCallView';
+import {ConnectedWalletView} from 'src/views/ConnectedWalletView';
+import {ConnectWalletView} from 'src/views/ConnectWalletView';
+import {DagSignMessageView} from 'src/views/DagSignMessageView';
+import {EthSignMessageView} from 'src/views/EthSignMessageView';
+import {EthTransferView} from 'src/views/EthTransferView';
+import {Erc20TransferView} from 'src/views/Erc20TransferView';
+import {Erc20ReadCallView} from 'src/views/Erc20ReadCallView';
+import {Erc20WriteCallView} from 'src/views/Erc20WriteCallView';
 
 import styles from './App.module.scss';
 

@@ -14,10 +14,10 @@ import {
 import {AlertCircle} from 'tabler-icons-react';
 import {StargazerConnector} from 'stargazer-connector';
 
-import {useWeb3React} from '@/src/utils/web3-react';
+import {useWeb3React} from 'src/utils/web3-react';
+import {stargazerConnector} from 'src/common/consts';
 
 import styles from './index.module.scss';
-import {stargazerConnector} from '@/src/common/consts';
 
 const ConnectedWalletView = () => {
   const {activate, account, connector} = useWeb3React();

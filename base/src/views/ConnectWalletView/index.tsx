@@ -3,8 +3,8 @@ import {Title, Stack, Button, Alert, Loader, Center, Paper} from '@mantine/core'
 import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
 
-import {useWeb3React} from '@/src/utils';
-import {stargazerConnector} from '@/src/common/consts';
+import {useWeb3React} from 'src/utils';
+import {stargazerConnector} from 'src/common/consts';
 
 import connectWalletText from './connectWallet.text.ts';
 import styles from './index.module.scss';

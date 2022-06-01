@@ -1,4 +1,4 @@
-import logo from '@/src/res/stargazer.svg';
+import logo from 'src/res/stargazer.svg';
 
 import styles from './index.module.scss';
 
