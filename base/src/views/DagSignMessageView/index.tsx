@@ -9,7 +9,8 @@ import {
   Paper,
   LoadingOverlay,
   Text,
-  Textarea
+  Textarea,
+  JsonInput
 } from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
@@ -25,7 +26,10 @@ const DagSignMessageView = () => {
   const {account, connector} = useWeb3React();
 
   const [value, setValue] = useState(
-    "Sign this message to confirm your participation in this month's program."
+    'Sign this message to confirm your participation in this project.'
+  );
+  const [metadata, setMetadata] = useState(
+    JSON.stringify({field1: 'some-value', field2: 'another value'})
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -33,16 +37,20 @@ const DagSignMessageView = () => {
   const [publicKey, setPublicKey] = useState('');
 
   const doSignMessage = async () => {
+    let metadataValue: any;
+    try {
+      metadataValue = JSON.parse(metadata);
+    } catch (e) {
+      setError('You have to provide a valid JSON object as metadata');
+      return;
+    }
+
     setLoading(true);
     try {
       if (connector instanceof StargazerConnector) {
         const signatureRequest = {
           content: value,
-          metadata: {
-            projectId: '3feb69d6-d3f0-4812-9c93-384bee08afe8',
-            nodes: 24,
-            fee: 0
-          }
+          metadata: metadataValue
         };
 
         const signatureRequestEnconded = window.btoa(JSON.stringify(signatureRequest));
@@ -96,6 +104,12 @@ const DagSignMessageView = () => {
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
         ></Textarea>
+        <JsonInput
+          label="Your metadata"
+          placeholder="A cool message to sign"
+          value={metadata}
+          onChange={setMetadata}
+        ></JsonInput>
         <Button onClick={doSignMessage}>Sign Message</Button>
         {signature && publicKey && (
           <>

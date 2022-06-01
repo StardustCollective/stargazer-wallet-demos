@@ -13,7 +13,7 @@ console.log(Object.is(stargazerConnector, connector));
 
 if (connector instanceof StargazerConnector) {
   // Build your message
-  const message = "Sign this message to confirm your participation in this month's program.";
+  const message = 'Sign this message to confirm your participation in this project.';
 
   const signature = await connector.ethProvider.request({
     method: 'personal_sign',

@@ -21,11 +21,15 @@ console.log(Object.is(stargazerConnector, connector));
 if (connector instanceof StargazerConnector) {
   // Build the signature request
   const signatureRequest: StargazerDagSignatureRequest = {
-    content: "Sign this message to confirm your participation in this month's program.",
+    content: 'Sign this message to confirm your participation in this project.',
     metadata: {
-      projectId: '3feb69d6-d3f0-4812-9c93-384bee08afe8',
-      nodes: 24,
-      fee: 0
+      field1: 'an-useful-value',
+      field2: 1,
+      field3: null /* ,
+      field4: {
+        // Nested fields are not supported
+        prop:1
+      } */
     }
   };
 
