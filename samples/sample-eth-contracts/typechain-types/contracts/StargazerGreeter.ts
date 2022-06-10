@@ -4,6 +4,7 @@
 import type {
   BaseContract,
   BigNumber,
+  BigNumberish,
   BytesLike,
   CallOverrides,
   ContractTransaction,
@@ -24,7 +25,7 @@ import type {
 export interface StargazerGreeterInterface extends utils.Interface {
   functions: {
     "greet()": FunctionFragment;
-    "setGreeting(string)": FunctionFragment;
+    "setGreeting(uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -32,7 +33,10 @@ export interface StargazerGreeterInterface extends utils.Interface {
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "greet", values?: undefined): string;
-  encodeFunctionData(functionFragment: "setGreeting", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setGreeting",
+    values: [BigNumberish]
+  ): string;
 
   decodeFunctionResult(functionFragment: "greet", data: BytesLike): Result;
   decodeFunctionResult(
@@ -73,7 +77,7 @@ export interface StargazerGreeter extends BaseContract {
     greet(overrides?: CallOverrides): Promise<[string]>;
 
     setGreeting(
-      _greeting: string,
+      _greetingId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -81,14 +85,17 @@ export interface StargazerGreeter extends BaseContract {
   greet(overrides?: CallOverrides): Promise<string>;
 
   setGreeting(
-    _greeting: string,
+    _greetingId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     greet(overrides?: CallOverrides): Promise<string>;
 
-    setGreeting(_greeting: string, overrides?: CallOverrides): Promise<void>;
+    setGreeting(
+      _greetingId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
@@ -97,7 +104,7 @@ export interface StargazerGreeter extends BaseContract {
     greet(overrides?: CallOverrides): Promise<BigNumber>;
 
     setGreeting(
-      _greeting: string,
+      _greetingId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -106,7 +113,7 @@ export interface StargazerGreeter extends BaseContract {
     greet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setGreeting(
-      _greeting: string,
+      _greetingId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

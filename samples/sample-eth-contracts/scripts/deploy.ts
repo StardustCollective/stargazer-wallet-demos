@@ -17,12 +17,16 @@ async function main() {
   const Greeter = await ethers.getContractFactory("StargazerGreeter");
   const greeter = await Greeter.deploy("Hello, Stargazer!");
 
+  console.log("Greeter trx:", greeter.deployTransaction.hash);
+
   await greeter.deployed();
 
   console.log("Greeter deployed to:", greeter.address);
 
   const SampleToken = await ethers.getContractFactory("StargazerSampleToken");
   const sampleToken = await SampleToken.deploy();
+
+  console.log("StargazerSampleToken trx:", sampleToken.deployTransaction.hash);
 
   await sampleToken.deployed();
 
