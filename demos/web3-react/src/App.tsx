@@ -7,15 +7,7 @@ import {BaseColor} from 'src/common/consts';
 import {Header} from 'src/common/components';
 
 import {ConnectedWalletView} from 'src/views/ConnectedWalletView';
-import {ConnectWalletView} from 'src/views/ConnectWalletView';
-import {DagSignMessageView} from 'src/views/DagSignMessageView';
-import {EthSignMessageView} from 'src/views/EthSignMessageView';
-import {EthTransferView} from 'src/views/EthTransferView';
-import {Erc20TransferView} from 'src/views/Erc20TransferView';
-import {Erc20ReadCallView} from 'src/views/Erc20ReadCallView';
-import {Erc20WriteCallView} from 'src/views/Erc20WriteCallView';
-import {ContractReadCallView} from 'src/views/ContractReadCallView';
-import {ContractWriteCallView} from 'src/views/ContractWriteCallView';
+import {DemoViews} from 'src/views/DemoViews';
 
 import styles from './App.module.scss';
 
@@ -39,15 +31,7 @@ function App() {
               </Grid.Col>
               <Grid.Col span={5}>
                 <Stack spacing="md">
-                  <ConnectWalletView />
-                  <DagSignMessageView />
-                  <EthSignMessageView />
-                  <EthTransferView />
-                  <Erc20TransferView />
-                  <Erc20ReadCallView />
-                  <Erc20WriteCallView />
-                  <ContractReadCallView />
-                  <ContractWriteCallView />
+                  <DemoViews />
                 </Stack>
               </Grid.Col>
             </Grid>

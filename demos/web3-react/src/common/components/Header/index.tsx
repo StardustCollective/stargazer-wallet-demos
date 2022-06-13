@@ -8,7 +8,7 @@ const Header = (): JSX.Element => {
       <div>
         <img src={logo}></img>
       </div>
-      <div>Stargazer Integration Demos</div>
+      <div>Stargazer Integration Demos (web3-react)</div>
       <div></div>
     </header>
   );

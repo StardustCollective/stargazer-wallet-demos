@@ -36,6 +36,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@types/webpack-env": "^1.17.0",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
     "customize-cra": "^1.0.0",
@@ -45,8 +46,8 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "prettier": "^2.6.2",
     "react-app-rewired": "^2.2.1",
-    "sass": "^1.52.1",
-    "sample-eth-contracts": "^1.0.0"
+    "sample-eth-contracts": "^1.0.0",
+    "sass": "^1.52.1"
   },
   "eslintConfig": {
     "extends": [
