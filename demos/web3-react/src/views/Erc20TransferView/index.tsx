@@ -7,11 +7,11 @@ import {
   Loader,
   Center,
   Paper,
-  Textarea,
-  NumberInput,
   LoadingOverlay,
   Text,
-  Select
+  Select,
+  NumberInput,
+  Textarea
 } from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
@@ -20,17 +20,17 @@ import {StargazerConnector} from 'stargazer-connector';
 
 import {useWeb3React} from 'src/utils';
 import {BaseColor} from 'src/common/consts';
+import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import transferText from './transfer.text.ts';
 import styles from './index.module.scss';
 
-const EthTransferView = () => {
-  const {account, library, connector} = useWeb3React();
+const Erc20TransferView = () => {
+  const {account, connector, library} = useWeb3React();
 
   const [value, setValue] = useState(0);
   const [sender, setSender] = useState('');
   const [receiver, setReceiver] = useState('');
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -45,12 +45,21 @@ const EthTransferView = () => {
     }
 
     try {
-      const valueInWei = ethers.BigNumber.from(value * 1e9).toHexString();
+      const StargazerTokenAddress = '0x6235bFcC2eb5401932A03e043C9b7De4eDCe7A2f';
 
       const signer = library.getSigner(sender);
 
+      const contract = new ethers.Contract(
+        StargazerTokenAddress,
+        ERC20ABI,
+        signer
+      ) as unknown as ERC20;
+
+      const receiverAddress = receiver;
+      const receiveValue = ethers.utils.parseUnits(String(value), 18).toHexString();
+
       setTrxStatus('Sending...');
-      const trxResponse = await signer.sendTransaction({to: receiver, value: valueInWei});
+      const trxResponse = await contract.transfer(receiverAddress, receiveValue);
 
       setHash(trxResponse.hash);
       setTrxStatus('Sent...');
@@ -68,7 +77,7 @@ const EthTransferView = () => {
 
   return (
     <Paper shadow="xs" className={styles.main}>
-      <Title order={2}>ETH - Transfer</Title>
+      <Title order={2}>ERC20 - Transfer</Title>
       <Stack sx={{position: 'relative'}}>
         <LoadingOverlay
           color={BaseColor.WHITE}
@@ -103,16 +112,20 @@ const EthTransferView = () => {
           onChange={(event) => setReceiver(event.currentTarget.value)}
         ></Textarea>
         <NumberInput
-          label="Value (GWEI)"
+          label="Value"
           value={value}
           onChange={(value) => setValue(value ?? 0)}
         ></NumberInput>
-        <Button onClick={doTransfer}>Transfer ETH</Button>
-        {hash && <Textarea label="Transaction hash" readOnly value={hash}></Textarea>}
+        <Button onClick={doTransfer}>Transfer ERC20</Button>
+        {hash && (
+          <>
+            <Textarea label="Transaction hash" value={hash}></Textarea>
+          </>
+        )}
         {trxStatus && <Textarea label="Transaction status" readOnly value={trxStatus}></Textarea>}
       </Stack>
     </Paper>
   );
 };
 
-export {EthTransferView};
+export {Erc20TransferView};

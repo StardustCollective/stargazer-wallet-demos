@@ -1,5 +1,5 @@
 {
-  "name": "base",
+  "name": "web3-react",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -45,7 +45,8 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "prettier": "^2.6.2",
     "react-app-rewired": "^2.2.1",
-    "sass": "^1.52.1"
+    "sass": "^1.52.1",
+    "sample-eth-contracts": "^1.0.0"
   },
   "eslintConfig": {
     "extends": [

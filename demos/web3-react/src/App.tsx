@@ -14,6 +14,8 @@ import {EthTransferView} from 'src/views/EthTransferView';
 import {Erc20TransferView} from 'src/views/Erc20TransferView';
 import {Erc20ReadCallView} from 'src/views/Erc20ReadCallView';
 import {Erc20WriteCallView} from 'src/views/Erc20WriteCallView';
+import {ContractReadCallView} from 'src/views/ContractReadCallView';
+import {ContractWriteCallView} from 'src/views/ContractWriteCallView';
 
 import styles from './App.module.scss';
 
@@ -44,6 +46,8 @@ function App() {
                   <Erc20TransferView />
                   <Erc20ReadCallView />
                   <Erc20WriteCallView />
+                  <ContractReadCallView />
+                  <ContractWriteCallView />
                 </Stack>
               </Grid.Col>
             </Grid>

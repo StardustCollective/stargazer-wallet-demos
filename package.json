@@ -9,11 +9,17 @@
   "engines": {
     "node": "^16.13.1"
   },
+  "scripts": {
+    "ws:contract": "yarn workspace sample-eth-contracts",
+    "ws:connector": "yarn workspace stargazer-connector",
+    "ws:web3react": "yarn workspace web3-react",
+    "ws:stargazer": "yarn workspace stargazer-provider"
+  },
   "workspaces": [
     "stargazer-connector",
-    "base",
-    "erc-20-transfer-demo",
-    "eth-transfer-demo"
+    "samples/sample-eth-contracts",
+    "demos/stargazer-provider",
+    "demos/web3-react"
   ],
   "dependencies": {
     "create-react-app": "^5.0.1"
