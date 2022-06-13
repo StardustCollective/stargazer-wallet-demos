@@ -46,7 +46,7 @@ const Erc20TransferView = () => {
       const trxResponse = await contract.transfer(receiverAddress, receiveValue);
 
       setHash(trxResponse.hash);
-      setTrxStatus('Sent...');
+      setTrxStatus('Sent... Waiting confirmation...');
 
       const trxReceipt = await library.waitForTransaction(trxResponse.hash);
       setTrxStatus(`Confirmed!\nBlock Number: ${trxReceipt.blockNumber}`);

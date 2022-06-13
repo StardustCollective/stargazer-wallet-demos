@@ -37,7 +37,7 @@ const EthTransferView = () => {
       const trxResponse = await signer.sendTransaction({to: receiver, value: valueInWei});
 
       setHash(trxResponse.hash);
-      setTrxStatus('Sent...');
+      setTrxStatus('Sent... Waiting confirmation...');
 
       const trxReceipt = await library.waitForTransaction(trxResponse.hash);
       setTrxStatus(`Confirmed!\nBlock Number: ${trxReceipt.blockNumber}`);

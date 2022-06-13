@@ -56,7 +56,7 @@ const ContractWriteCallView = () => {
       const trxResponse = await contract.setGreeting(greetingId);
 
       setHash(trxResponse.hash);
-      setTrxStatus('Sent...');
+      setTrxStatus('Sent... Waiting confirmation...');
 
       const trxReceipt = await library.waitForTransaction(trxResponse.hash);
       setTrxStatus(`Confirmed!\nBlock Number: ${trxReceipt.blockNumber}`);
