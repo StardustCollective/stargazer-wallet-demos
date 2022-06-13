@@ -36,9 +36,17 @@ const ConnectWalletView = () => {
       outputs={
         <>
           {stargazerProviders.connected &&
-            stargazerProviders.dagAccounts.map((account) => <Badge key={account}>{account}</Badge>)}
+            stargazerProviders.dagAccounts.map((account) => (
+              <Badge variant="light" color="blue" key={account}>
+                {account}
+              </Badge>
+            ))}
           {stargazerProviders.connected &&
-            stargazerProviders.ethAccounts.map((account) => <Badge key={account}>{account}</Badge>)}
+            stargazerProviders.ethAccounts.map((account) => (
+              <Badge variant="light" color="blue" key={account}>
+                {account}
+              </Badge>
+            ))}
         </>
       }
     />
