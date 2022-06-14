@@ -12,7 +12,7 @@ import demoCodeText from './demoCode.text.ts';
 const greetings = [
   {value: '0', label: '(0) Good Morning!'},
   {value: '1', label: '(1) Bon Matin!'},
-  {value: '2', label: '(2) Buenos D\xC3\xADas!'},
+  {value: '2', label: '(2) Buenos Días!'},
   {value: '3', label: '(3) Guten Morgen!'},
   {value: '4', label: '(4) Buongiorno!'},
   {value: '5', label: '(5) Bom Dia!'},
