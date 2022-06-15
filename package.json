@@ -1,0 +1,27 @@
+{
+  "name": "stargazer-wallet-demos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/StardustCollective/stargazer-wallet-demos",
+  "author": "Stardust Collective <info@stardustcollective.org>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "^16.13.1"
+  },
+  "scripts": {
+    "ws:contract": "yarn workspace sample-eth-contracts",
+    "ws:connector": "yarn workspace stargazer-connector",
+    "ws:web3react": "yarn workspace web3-react",
+    "ws:stargazer": "yarn workspace stargazer-provider"
+  },
+  "workspaces": [
+    "stargazer-connector",
+    "samples/sample-eth-contracts",
+    "demos/stargazer-provider",
+    "demos/web3-react"
+  ],
+  "dependencies": {
+    "create-react-app": "^5.0.1"
+  }
+}

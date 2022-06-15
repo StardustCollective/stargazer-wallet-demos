@@ -1,0 +1,4 @@
+[submodule "stargazer-connector"]
+	path = stargazer-connector
+	url = https://github.com/StardustCollective/stargazer-wallet-connector
+	branch = main
