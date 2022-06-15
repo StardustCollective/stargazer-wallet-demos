@@ -1,21 +1,9 @@
 import React, {useState} from 'react';
-import {
-  Title,
-  Stack,
-  Button,
-  Alert,
-  Loader,
-  Center,
-  Paper,
-  LoadingOverlay,
-  Text,
-  Collapse
-} from '@mantine/core';
+import {Title, Stack, Button, Alert, Loader, Center, Paper, Collapse} from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
 
 import {useWeb3React} from 'src/utils';
-import {BaseColor} from 'src/common/consts';
 
 import styles from './index.module.scss';
 
@@ -40,7 +28,7 @@ const DemoCard = ({
   outputs?: React.ReactNode;
   error?: string;
 }) => {
-  const {account} = useWeb3React();
+  const {account, chainId} = useWeb3React();
   const [open, setOpen] = useState(false);
 
   return (
@@ -50,13 +38,6 @@ const DemoCard = ({
       </Title>
       <Collapse in={open} transitionDuration={500}>
         <Stack sx={{position: 'relative'}}>
-          {walletRequired && (
-            <LoadingOverlay
-              color={BaseColor.WHITE}
-              visible={!account}
-              loader={<Text>Connect your wallet to use this demo</Text>}
-            />
-          )}
           <Prism language="tsx">{codeExample}</Prism>
           {error && (
             <Alert icon={<AlertCircle size={16} />} title="Ohh no!" color="red">
@@ -69,7 +50,24 @@ const DemoCard = ({
             </Center>
           )}
           {inputs}
-          <Button disabled={isLoading} onClick={onActionButtonClick}>
+          {walletRequired && typeof chainId === 'number' && chainId !== 3 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Ropsten network, your wallet needs to be on the same
+              network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
+              Network {'>:'} and choose Ropsten Testnet.
+            </Alert>
+          )}
+          {walletRequired && !account && (
+            <Alert icon={<AlertCircle size={16} />} title="Missing wallet" color="yellow">
+              Connect your wallet to use this demo.
+            </Alert>
+          )}
+          <Button
+            disabled={
+              (walletRequired && chainId !== 3) || (walletRequired && !account) || isLoading
+            }
+            onClick={onActionButtonClick}
+          >
             {actionButtonClickContent}
           </Button>
           {outputs}

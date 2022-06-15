@@ -19,8 +19,15 @@ import {stargazerConnector} from 'src/common/consts';
 
 import styles from './index.module.scss';
 
+const CHAIN_NAMES = {
+  1: 'Ethereum Mainnet (Homestead)',
+  3: 'Ethereum Roptsten Testnet',
+  4: 'Ethereum Rinkeby Testnet',
+  5: 'Ethereum Goerli Testnet'
+};
+
 const ConnectedWalletView = () => {
-  const {activate, account, connector} = useWeb3React();
+  const {activate, account, chainId, connector} = useWeb3React();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -58,13 +65,6 @@ const ConnectedWalletView = () => {
           </Alert>
         )}
         {!account && <Button onClick={doActivate}>Connect Wallet</Button>}
-        {account && (
-          <Center>
-            <Badge variant="light" color="blue">
-              {account}
-            </Badge>
-          </Center>
-        )}
         {connector instanceof StargazerConnector && (
           <Accordion>
             <Accordion.Item label="$DAG Accounts">
@@ -82,6 +82,20 @@ const ConnectedWalletView = () => {
               </Stack>
             </Accordion.Item>
           </Accordion>
+        )}
+        {account && chainId && (
+          <Center>
+            <Badge variant="light" color={chainId === 3 ? 'green' : 'yellow'}>
+              {CHAIN_NAMES[chainId] ?? 'Unknown Chain Id'}
+            </Badge>
+          </Center>
+        )}
+        {account && typeof chainId === 'number' && chainId !== 3 && (
+          <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+            All demos were designed on the Ropsten network, your wallet needs to be on the same
+            network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
+            Network {'>:'} and choose Ropsten Testnet.
+          </Alert>
         )}
       </Stack>
     </Paper>

@@ -6,9 +6,7 @@ declare global {
   }
 }
 
-const stargazerConnector = new StargazerConnector({
-  supportedChainIds: [1, 3]
-});
+const stargazerConnector = new StargazerConnector({});
 
 window.stargazerConnector = stargazerConnector;
 
