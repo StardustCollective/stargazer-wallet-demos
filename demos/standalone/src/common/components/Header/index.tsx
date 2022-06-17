@@ -8,7 +8,7 @@ const Header = (): JSX.Element => {
       <div>
         <img src={logo}></img>
       </div>
-      <div>Stargazer Integration Demos (stargazer-provider)</div>
+      <div>Stargazer Integration Demos (standalone)</div>
       <div></div>
     </header>
   );

@@ -1,5 +1,5 @@
 import {useWeb3React} from '@web3-react/core';
-import {StargazerConnector} from 'stargazer-connector';
+import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 type JSONScalarValue = null | string | number | boolean;
 

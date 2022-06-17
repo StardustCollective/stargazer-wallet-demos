@@ -1,4 +1,4 @@
-import {StargazerConnector} from 'stargazer-connector';
+import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 declare global {
   interface Window {

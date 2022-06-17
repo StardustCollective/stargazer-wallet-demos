@@ -11,14 +11,14 @@
   },
   "scripts": {
     "ws:contract": "yarn workspace sample-eth-contracts",
-    "ws:connector": "yarn workspace stargazer-connector",
     "ws:web3react": "yarn workspace web3-react",
-    "ws:stargazer": "yarn workspace stargazer-provider"
+    "ws:standalone": "yarn workspace standalone",
+    "start-web3react": "yarn ws:web3react start",
+    "start-standalone": "yarn ws:standalone start"
   },
   "workspaces": [
-    "stargazer-connector",
     "samples/sample-eth-contracts",
-    "demos/stargazer-provider",
+    "demos/standalone",
     "demos/web3-react"
   ],
   "dependencies": {

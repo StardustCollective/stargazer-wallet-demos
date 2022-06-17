@@ -12,7 +12,7 @@ import {
   Loader
 } from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
-import {StargazerConnector} from 'stargazer-connector';
+import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {useWeb3React} from 'src/utils/web3-react';
 import {stargazerConnector} from 'src/common/consts';

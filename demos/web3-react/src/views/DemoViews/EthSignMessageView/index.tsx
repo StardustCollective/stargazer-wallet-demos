@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Textarea} from '@mantine/core';
-import {StargazerConnector} from 'stargazer-connector';
+import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
