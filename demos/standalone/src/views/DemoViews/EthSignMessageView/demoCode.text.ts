@@ -9,7 +9,7 @@ const accounts = await ethProvider.request({method: 'eth_accounts'});
 
 const signature = await ethProvider.request({
   method: 'personal_sign',
-  params: [accounts[0], message]
+  params: [message, accounts[0]]
 });
 
 // Send your signature pair for further verification

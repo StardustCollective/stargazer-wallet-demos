@@ -17,7 +17,7 @@ if (connector instanceof StargazerConnector) {
 
   const signature = await connector.ethProvider.request({
     method: 'personal_sign',
-    params: [account, message]
+    params: [message, account]
   });
 
   // Send your signature pair for further verification

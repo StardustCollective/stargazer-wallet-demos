@@ -14,7 +14,7 @@ const DagSignMessageView = () => {
     'Sign this message to confirm your participation in this project.'
   );
   const [metadata, setMetadata] = useState(
-    JSON.stringify({field1: 'some-value', field2: 'another value'})
+    JSON.stringify({field1: 'some-value', field2: 'another value'}, null, 2)
   );
 
   const [loading, setLoading] = useState(false);
@@ -87,6 +87,9 @@ const DagSignMessageView = () => {
             placeholder="A cool message to sign"
             value={metadata}
             onChange={setMetadata}
+            validationError="Not valid JSON"
+            autosize
+            formatOnBlur
           ></JsonInput>
         </>
       }
