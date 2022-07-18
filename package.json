@@ -14,7 +14,8 @@
     "ws:web3react": "yarn workspace web3-react",
     "ws:standalone": "yarn workspace standalone",
     "start-web3react": "yarn ws:web3react start",
-    "start-standalone": "yarn ws:standalone start"
+    "start-standalone": "yarn ws:standalone start",
+    "build": "yarn ws:web3react build && yarn ws:standalone build"
   },
   "workspaces": [
     "samples/sample-eth-contracts",
