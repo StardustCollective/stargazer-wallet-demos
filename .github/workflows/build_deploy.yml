@@ -1,0 +1,63 @@
+name: Build & Deploy
+on:
+  push:
+    branches:
+      - deploy
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.13.1]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Yarn Install
+        run: |
+          yarn install
+      - name: Build
+        run: |
+          yarn build
+      - name: Deploy to S3 (web3react)
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: stargazer-demos-deploy
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+          SOURCE_DIR: "demos/web3-react/build"
+          DEST_DIR: "web3react"
+      - name: Deploy to S3 (standalone)
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: stargazer-demos-deploy
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+          SOURCE_DIR: "demos/standalone/build"
+          DEST_DIR: "standalone"
+      - name: Invalidate Cloudfront Distribution (web3react)
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          DISTRIBUTION: E293VIANH5OD68
+          PATHS: "/*"
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Invalidate Cloudfront Distribution (standalone)
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          DISTRIBUTION: E1ODHZCQ01YQXF
+          PATHS: "/*"
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
