@@ -2,7 +2,7 @@ name: Build & Deploy
 on:
   push:
     branches:
-      - development/*
+      - development/juan/SGW-365/implement-eip-712
 jobs:
   build:
     runs-on: ubuntu-latest
