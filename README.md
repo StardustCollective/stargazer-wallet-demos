@@ -24,20 +24,20 @@ yarn start-standalone
 
 ## Ethereum Demos, Chain Preference & Sample Contracts
 
-For ethereum demos we've chosen the ropsten testnet for some sample contracts located under [samples/sample-eth-contracts](./samples/sample-eth-contracts). You must use the ropsten network when running the demos, doing otherwise will likely throw some errors.
+For ethereum demos we've chosen the goerli testnet for some sample contracts located under [samples/sample-eth-contracts](./samples/sample-eth-contracts). You must use the goerli network when running the demos, doing otherwise will likely throw some errors.
 
-Sample contracts used are already deployed in the ropsten network at the following addresses.
+Sample contracts used are already deployed in the goerli network at the following addresses.
 
-#### [StargazerGreeter](https://ropsten.etherscan.io/address/0x1dbf94d57ceb7b59de0b5efd1e85776aa97cbdb4#code)
-
-```
-0x1DBF94D57ceb7b59de0b5efd1e85776aa97CbDb4
-```
-
-#### [StargazerSampleToken (SST)](https://ropsten.etherscan.io/address/0x6235bfcc2eb5401932a03e043c9b7de4edce7a2f)
+#### [StargazerGreeter](https://goerli.etherscan.io/address/0x0F1568746563F6F1A01C76B7cfca4390d81D97b2#code)
 
 ```
-0x6235bFcC2eb5401932A03e043C9b7De4eDCe7A2f
+0x0F1568746563F6F1A01C76B7cfca4390d81D97b2
+```
+
+#### [StargazerSampleToken (SST)](https://goerli.etherscan.io/address/0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65)
+
+```
+0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65
 ```
 
 If you want to get creative the [samples/sample-eth-contracts](./samples/sample-eth-contracts) contains a pretty basic [hardhat](https://hardhat.org/) project you can check out.

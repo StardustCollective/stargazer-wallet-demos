@@ -25,7 +25,7 @@ const ContractReadCallView = () => {
     }
 
     try {
-      const StargazerGreeterAddress = '0x1DBF94D57ceb7b59de0b5efd1e85776aa97CbDb4';
+      const StargazerGreeterAddress = '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2';
 
       const contract = new ethers.Contract(
         StargazerGreeterAddress,
@@ -58,7 +58,7 @@ const ContractReadCallView = () => {
         <>
           <Textarea
             label="Smart Contract (Stargazer Greeter)"
-            value="0x1DBF94D57ceb7b59de0b5efd1e85776aa97CbDb4"
+            value="0x0F1568746563F6F1A01C76B7cfca4390d81D97b2"
             readOnly
             disabled
           ></Textarea>

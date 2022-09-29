@@ -7,7 +7,7 @@ const {ethProvider} = await activateStargazerProviders();
 const domain = {
   name: 'Stargazer Demo',
   version: '1.0.0',
-  chainId: 3,
+  chainId: 5,
   verifyingContract: '0xabcdefABCDEF1234567890abcdefABCDEF123456'
 };
 

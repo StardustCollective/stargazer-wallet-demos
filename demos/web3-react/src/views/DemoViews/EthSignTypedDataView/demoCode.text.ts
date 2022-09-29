@@ -3,7 +3,7 @@ import * as ethers from 'ethers';
 import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 const stargazerConnector = new StargazerConnector({
-  supportedChainIds: [1, 3]
+  supportedChainIds: [1, 5]
 });
 
 // Once activated
@@ -17,7 +17,7 @@ if (connector instanceof StargazerConnector) {
   const domain = {
     name: 'Stargazer Demo',
     version: '1.0.0',
-    chainId: 3,
+    chainId: 5,
     verifyingContract: '0xabcdefABCDEF1234567890abcdefABCDEF123456'
   };
 

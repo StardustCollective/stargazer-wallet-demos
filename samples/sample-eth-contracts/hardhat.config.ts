@@ -25,10 +25,10 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
+    goerli: {
+      url: process.env.GOERLI_URL || "",
       accounts:
-        process.env.ROPSTEN_PK !== undefined ? [process.env.ROPSTEN_PK] : [],
+        process.env.GOERLI_PK !== undefined ? [process.env.GOERLI_PK] : [],
     },
   },
   gasReporter: {
