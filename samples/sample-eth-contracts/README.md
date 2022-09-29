@@ -4,24 +4,24 @@ This project contains the 2 sample ethereum contracts that are used in the demos
 
 The project is bootstrapped from Hardhat's [quick start](https://hardhat.org/getting-started#quick-start) (Typescript Version).
 
-Both contracts were deployed in the [ropsten](https://ropsten.etherscan.io/) network.
+Both contracts were deployed in the [goerli](https://goerli.etherscan.io/) network.
 
 ## [StargazerGreeter](./contracts/StargazerGreeter.sol)
 
 A pretty simple contract that holds state in the chain.
 
-[Address](https://ropsten.etherscan.io/address/0x39d12D1f3dCF50D175F1a9938155C7FcF96c23B5)
+[Address](https://goerli.etherscan.io/address/0x0F1568746563F6F1A01C76B7cfca4390d81D97b2)
 
 ```
-0x39d12D1f3dCF50D175F1a9938155C7FcF96c23B5
+0x0F1568746563F6F1A01C76B7cfca4390d81D97b2
 ```
 
 ## [StargazerToken](./contracts/StargazerToken.sol)
 
 An ERC20 standard token, `mint` and `burn` methods are publicly available.
 
-[Address](https://ropsten.etherscan.io/address/0x6235bFcC2eb5401932A03e043C9b7De4eDCe7A2f)
+[Address](https://goerli.etherscan.io/address/0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65)
 
 ```
-0x6235bFcC2eb5401932A03e043C9b7De4eDCe7A2f
+0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65
 ```

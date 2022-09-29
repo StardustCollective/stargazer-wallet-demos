@@ -72,16 +72,16 @@ const DemoCard = ({
             </Center>
           )}
           {inputs}
-          {walletRequired && chainId !== '0x0' && chainId !== '0x3' && (
+          {walletRequired && chainId !== '0x0' && chainId !== '0x5' && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-              All demos were designed on the Ropsten network, your wallet needs to be on the same
+              All demos were designed on the Goerli network, your wallet needs to be on the same
               network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
-              Network {'>:'} and choose Ropsten Testnet.
+              Network {'>:'} and choose Goerli Testnet.
             </Alert>
           )}
           <Button
             disabled={
-              (walletRequired && chainId !== '0x3') ||
+              (walletRequired && chainId !== '0x5') ||
               (walletRequired && !stargazerProviders.connected) ||
               isLoading ||
               stargazerProviders.loading
