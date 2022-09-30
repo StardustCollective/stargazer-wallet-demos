@@ -29,7 +29,7 @@ const Erc20TransferView = () => {
 
       const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
-      const StargazerTokenAddress = '0x6235bFcC2eb5401932A03e043C9b7De4eDCe7A2f';
+      const StargazerTokenAddress = '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65';
 
       const signer = library.getSigner(sender);
 

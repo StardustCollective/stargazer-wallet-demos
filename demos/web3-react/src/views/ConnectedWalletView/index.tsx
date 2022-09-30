@@ -21,7 +21,7 @@ import styles from './index.module.scss';
 
 const CHAIN_NAMES = {
   1: 'Ethereum Mainnet (Homestead)',
-  3: 'Ethereum Roptsten Testnet',
+  3: 'Ethereum Ropsten Testnet',
   4: 'Ethereum Rinkeby Testnet',
   5: 'Ethereum Goerli Testnet'
 };
@@ -85,16 +85,16 @@ const ConnectedWalletView = () => {
         )}
         {account && chainId && (
           <Center>
-            <Badge variant="light" color={chainId === 3 ? 'green' : 'yellow'}>
+            <Badge variant="light" color={chainId === 5 ? 'green' : 'yellow'}>
               {CHAIN_NAMES[chainId] ?? 'Unknown Chain Id'}
             </Badge>
           </Center>
         )}
-        {account && typeof chainId === 'number' && chainId !== 3 && (
+        {account && typeof chainId === 'number' && chainId !== 5 && (
           <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-            All demos were designed on the Ropsten network, your wallet needs to be on the same
+            All demos were designed on the Goerli network, your wallet needs to be on the same
             network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
-            Network {'>:'} and choose Ropsten Testnet.
+            Network {'>:'} and choose Goerli Testnet.
           </Alert>
         )}
       </Stack>

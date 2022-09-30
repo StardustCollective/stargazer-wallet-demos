@@ -11,7 +11,7 @@ import demoCodeText from './demoCode.text.ts';
 const STRICT_DOMAIN = {
   name: 'Stargazer Demo',
   version: '1.0.0',
-  chainId: 3,
+  chainId: 5,
   verifyingContract: '0xEb14c9bb6C2DEc2eCb9B278C9fa1EC763B04d545'
 };
 

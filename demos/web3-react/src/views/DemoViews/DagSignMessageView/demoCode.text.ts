@@ -9,7 +9,7 @@ type StargazerDagSignatureRequest = {
 };
 
 const stargazerConnector = new StargazerConnector({
-  supportedChainIds: [1, 3]
+  supportedChainIds: [1, 5]
 });
 
 // Once activated
