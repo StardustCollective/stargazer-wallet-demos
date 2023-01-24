@@ -4,6 +4,7 @@ import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
 
 import {useWeb3React} from 'src/utils';
+import useDagChainId from 'src/utils/useDagChainId';
 
 import styles from './index.module.scss';
 
@@ -29,7 +30,10 @@ const DemoCard = ({
   error?: string;
 }) => {
   const {account, chainId} = useWeb3React();
+  const {dagChainId} = useDagChainId();
   const [open, setOpen] = useState(false);
+
+  const isDAGdemo = title.includes('DAG');
 
   return (
     <Paper shadow="xs" className={styles.main}>
@@ -50,11 +54,18 @@ const DemoCard = ({
             </Center>
           )}
           {inputs}
-          {walletRequired && typeof chainId === 'number' && chainId !== 5 && (
+          {walletRequired && !isDAGdemo && typeof chainId === 'number' && chainId !== 5 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Goerli network, your wallet needs to be on the same
               network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
               Network {'>:'} and choose Goerli Testnet.
+            </Alert>
+          )}
+          {walletRequired && isDAGdemo && typeof dagChainId === 'number' && dagChainId !== 3 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Testnet 2.0 network, your wallet needs to be on the
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'> '}
+              Constellation Network {'>'} and choose Testnet 2.0.
             </Alert>
           )}
           {walletRequired && !account && (
@@ -64,7 +75,10 @@ const DemoCard = ({
           )}
           <Button
             disabled={
-              (walletRequired && chainId !== 5) || (walletRequired && !account) || isLoading
+              (walletRequired && !isDAGdemo && chainId !== 5) ||
+              (walletRequired && isDAGdemo && dagChainId !== 3) ||
+              (walletRequired && !account) ||
+              isLoading
             }
             onClick={onActionButtonClick}
           >
