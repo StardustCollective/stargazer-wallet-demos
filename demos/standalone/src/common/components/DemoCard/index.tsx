@@ -32,6 +32,9 @@ const DemoCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [chainId, setChainId] = useState('0x0');
+  const [dagChainId, setDagChainId] = useState(0);
+
+  const isDAGdemo = title.includes('DAG');
 
   const stargazerProviders = useStargazerProviders();
 
@@ -49,8 +52,23 @@ const DemoCard = ({
         });
         setChainId(chainId);
       })();
+      (async () => {
+        if (!stargazerProviders.dagProvider) {
+          return;
+        }
+
+        const dagChainId = await stargazerProviders.dagProvider.request({
+          method: 'dag_chainId',
+          params: []
+        });
+        setDagChainId(dagChainId);
+      })();
     }
-  }, [stargazerProviders.connected, stargazerProviders.ethProvider, onWalletConnected]);
+  }, [
+    stargazerProviders.connected,
+    stargazerProviders.ethProvider,
+    stargazerProviders.dagProvider
+  ]);
 
   return (
     <Paper shadow="xs" className={styles.main}>
@@ -72,16 +90,24 @@ const DemoCard = ({
             </Center>
           )}
           {inputs}
-          {walletRequired && chainId !== '0x0' && chainId !== '0x5' && (
+          {walletRequired && !isDAGdemo && chainId !== '0x0' && chainId !== '0x5' && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Goerli network, your wallet needs to be on the same
               network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
-              Network {'>:'} and choose Goerli Testnet.
+              Network {'>'} and choose Goerli Testnet.
+            </Alert>
+          )}
+          {walletRequired && isDAGdemo && dagChainId !== 0 && dagChainId !== 3 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Testnet 2.0 network, your wallet needs to be on the
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+              Constellation Network {'>'} and choose Testnet 2.0.
             </Alert>
           )}
           <Button
             disabled={
-              (walletRequired && chainId !== '0x5') ||
+              (walletRequired && !isDAGdemo && chainId !== '0x5') ||
+              (walletRequired && isDAGdemo && dagChainId !== 3) ||
               (walletRequired && !stargazerProviders.connected) ||
               isLoading ||
               stargazerProviders.loading
