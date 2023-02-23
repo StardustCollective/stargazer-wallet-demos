@@ -15,6 +15,7 @@ import {AlertCircle} from 'tabler-icons-react';
 import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {useWeb3React} from 'src/utils/web3-react';
+import useDagChainId from 'src/utils/useDagChainId';
 import {stargazerConnector} from 'src/common/consts';
 
 import styles from './index.module.scss';
@@ -26,8 +27,14 @@ const CHAIN_NAMES = {
   5: 'Ethereum Goerli Testnet'
 };
 
+const DAG_CHAIN_NAMES = {
+  1: 'Constellation Mainnet 2.0',
+  3: 'Constellation Testnet 2.0'
+};
+
 const ConnectedWalletView = () => {
   const {activate, account, chainId, connector} = useWeb3React();
+  const {dagChainId} = useDagChainId();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -94,7 +101,21 @@ const ConnectedWalletView = () => {
           <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
             All demos were designed on the Goerli network, your wallet needs to be on the same
             network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
-            Network {'>:'} and choose Goerli Testnet.
+            Network {'>'} and choose Goerli Testnet.
+          </Alert>
+        )}
+        {account && dagChainId && (
+          <Center>
+            <Badge variant="light" color={dagChainId === 3 ? 'green' : 'yellow'}>
+              {DAG_CHAIN_NAMES[dagChainId] ?? 'Unknown Chain Id'}
+            </Badge>
+          </Center>
+        )}
+        {account && typeof dagChainId === 'number' && dagChainId !== 3 && (
+          <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+            All demos were designed on the Testnet 2.0 network, your wallet needs to be on the same
+            network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'> '}
+            Constellation Network {'>'} and choose Testnet 2.0.
           </Alert>
         )}
       </Stack>
