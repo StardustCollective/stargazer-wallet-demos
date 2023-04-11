@@ -7,6 +7,7 @@ import {DemoCard} from 'src/common/components';
 import {StargazerGreeterABI, StargazerGreeter} from 'src/utils/interfaces/StargazerGreeter';
 
 import demoCodeText from './demoCode.text.ts';
+import {STARGAZER_CHAINS} from 'src/utils/constants';
 
 const greetings = [
   {value: '0', label: '(0) Good Morning!'},
@@ -33,14 +34,25 @@ const ContractWriteCallView = () => {
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doWriteCall = async () => {
+  const doWriteCall = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
-    const {ethProvider} = await stargazerProviders.connect();
+    const {ethProvider, polygonProvider} = await stargazerProviders.connect();
+
+    const PROVIDERS = {
+      [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
+      [STARGAZER_CHAINS.POLYGON]: polygonProvider
+    };
+
+    const CONTRACT_ADDRESSES = {
+      [STARGAZER_CHAINS.ETHEREUM]: '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2',
+      [STARGAZER_CHAINS.POLYGON]: '0xce4E723904f5a679eACB9D70710210024F62378C'
+    };
 
     try {
-      const StargazerGreeterAddress = '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2';
+      const StargazerGreeterAddress: string = CONTRACT_ADDRESSES[selectedProvider];
+      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
 
-      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
+      const library = new ethers.providers.Web3Provider(provider, 'any');
 
       const signer = library.getSigner(sender);
 
@@ -80,11 +92,17 @@ const ContractWriteCallView = () => {
       inputs={
         <>
           <Textarea
-            label="Smart Contract (Stargazer Greeter)"
+            label="Ethereum Smart Contract (Stargazer Greeter)"
             value="0x0F1568746563F6F1A01C76B7cfca4390d81D97b2"
             readOnly
             disabled
-          ></Textarea>
+          />
+          <Textarea
+            label="Polygon Smart Contract (Stargazer Greeter)"
+            value="0xce4E723904f5a679eACB9D70710210024F62378C"
+            readOnly
+            disabled
+          />
           {stargazerProviders.connected && (
             <Select
               label="Sender"

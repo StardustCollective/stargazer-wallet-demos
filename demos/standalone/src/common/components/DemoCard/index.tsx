@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Title, Stack, Button, Alert, Loader, Center, Paper, Collapse} from '@mantine/core';
+import {Title, Stack, Button, Alert, Loader, Center, Paper, Collapse, Select} from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
 import {Prism} from '@mantine/prism';
 
 import {useStargazerProviders} from 'src/utils';
 
 import styles from './index.module.scss';
+import {STARGAZER_CHAINS} from 'src/utils/constants';
 
 const DemoCard = ({
   title,
@@ -21,7 +22,7 @@ const DemoCard = ({
 }: {
   title: string;
   codeExample: string;
-  onActionButtonClick: () => void;
+  onActionButtonClick: (provider: STARGAZER_CHAINS) => void;
   actionButtonClickContent: string;
   onWalletConnected?: () => void;
   walletRequired?: boolean;
@@ -32,6 +33,8 @@ const DemoCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [chainId, setChainId] = useState('0x0');
+  const [polygonChainId, setPolygonChainId] = useState('0x0');
+  const [selectedProvider, setSelectedProvider] = useState(STARGAZER_CHAINS.ETHEREUM);
   const [dagChainId, setDagChainId] = useState(0);
 
   const isDAGdemo = title.includes('DAG');
@@ -53,6 +56,17 @@ const DemoCard = ({
         setChainId(chainId);
       })();
       (async () => {
+        if (!stargazerProviders.polygonProvider) {
+          return;
+        }
+
+        const polygonChainId = await stargazerProviders.polygonProvider.request({
+          method: 'eth_chainId',
+          params: []
+        });
+        setPolygonChainId(polygonChainId);
+      })();
+      (async () => {
         if (!stargazerProviders.dagProvider) {
           return;
         }
@@ -67,6 +81,7 @@ const DemoCard = ({
   }, [
     stargazerProviders.connected,
     stargazerProviders.ethProvider,
+    stargazerProviders.polygonProvider,
     stargazerProviders.dagProvider
   ]);
 
@@ -90,13 +105,41 @@ const DemoCard = ({
             </Center>
           )}
           {inputs}
-          {walletRequired && !isDAGdemo && chainId !== '0x0' && chainId !== '0x5' && (
-            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-              All demos were designed on the Goerli network, your wallet needs to be on the same
-              network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
-              Network {'>'} and choose Goerli Testnet.
-            </Alert>
+          {walletRequired && !isDAGdemo && stargazerProviders.connected && (
+            <Stack>
+              <Select
+                label={'Select EVM network'}
+                value={selectedProvider}
+                data={[
+                  {label: 'Ethereum', value: STARGAZER_CHAINS.ETHEREUM},
+                  {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON}
+                ]}
+                onChange={(value) => setSelectedProvider(value as STARGAZER_CHAINS)}
+              />
+            </Stack>
           )}
+          {walletRequired &&
+            !isDAGdemo &&
+            selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
+            chainId !== '0x0' &&
+            chainId !== '0x5' && (
+              <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+                All demos were designed on the Goerli network, your wallet needs to be on the same
+                network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+                Ethereum Network {'>'} and choose Goerli Testnet.
+              </Alert>
+            )}
+          {walletRequired &&
+            !isDAGdemo &&
+            selectedProvider === STARGAZER_CHAINS.POLYGON &&
+            polygonChainId !== '0x0' &&
+            polygonChainId !== '0x13881' && (
+              <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+                All demos were designed on the Maticmum Testnet network, your wallet needs to be on
+                the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+                {'>'} Polygon Network {'>'} and choose Maticmum Testnet.
+              </Alert>
+            )}
           {walletRequired && isDAGdemo && dagChainId !== 0 && dagChainId !== 3 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Testnet 2.0 network, your wallet needs to be on the
@@ -106,18 +149,26 @@ const DemoCard = ({
           )}
           <Button
             disabled={
-              (walletRequired && !isDAGdemo && chainId !== '0x5') ||
+              (walletRequired &&
+                !isDAGdemo &&
+                selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
+                chainId !== '0x5') ||
+              (walletRequired &&
+                !isDAGdemo &&
+                selectedProvider === STARGAZER_CHAINS.POLYGON &&
+                polygonChainId !== '0x13881') ||
               (walletRequired && isDAGdemo && dagChainId !== 3) ||
               (walletRequired && !stargazerProviders.connected) ||
               isLoading ||
               stargazerProviders.loading
             }
-            onClick={onActionButtonClick}
+            onClick={() => onActionButtonClick(selectedProvider)}
           >
             {actionButtonClickContent}
           </Button>
           {outputs}
         </Stack>
+
         {walletRequired && !stargazerProviders.connected && (
           <Stack sx={{position: 'relative', marginTop: '10px'}}>
             <Button disabled={stargazerProviders.loading} onClick={stargazerProviders.connect}>

@@ -8,28 +8,40 @@ import {DemoCard} from 'src/common/components';
 import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
+import {STARGAZER_CHAINS} from 'src/utils/constants';
 
 const Erc20TransferView = () => {
   const stargazerProviders = useStargazerProviders();
 
-  const [value, setValue] = useState(0);
-  const [sender, setSender] = useState('');
-  const [receiver, setReceiver] = useState('');
+  const [value, setValue] = useState(1);
+  const [sender, setSender] = useState('0xe2Db5a1CB999b99c858dD0afe413dD11A8965E39');
+  const [receiver, setReceiver] = useState('0xf4CB0d8032601520caD732B9700BBe3514E7c7DB');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doTransfer = async () => {
+  const doTransfer = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
 
     try {
-      const {ethProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider} = await stargazerProviders.connect();
 
-      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
+      const PROVIDERS = {
+        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider
+      };
 
-      const StargazerTokenAddress = '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65';
+      const CONTRACT_ADDRESSES = {
+        [STARGAZER_CHAINS.ETHEREUM]: '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65',
+        [STARGAZER_CHAINS.POLYGON]: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5'
+      };
+
+      const StargazerTokenAddress: string = CONTRACT_ADDRESSES[selectedProvider];
+      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+
+      const library = new ethers.providers.Web3Provider(provider, 'any');
 
       const signer = library.getSigner(sender);
 
@@ -54,7 +66,6 @@ const Erc20TransferView = () => {
       setError('');
     } catch (e) {
       setError(String(e));
-      console.error(e);
     }
     setLoading(false);
   };
@@ -88,7 +99,7 @@ const Erc20TransferView = () => {
             onChange={(event) => setReceiver(event.currentTarget.value)}
           ></Textarea>
           <NumberInput
-            label="Value"
+            label="Value (SST)"
             value={value}
             onChange={(value) => setValue(value ?? 0)}
           ></NumberInput>

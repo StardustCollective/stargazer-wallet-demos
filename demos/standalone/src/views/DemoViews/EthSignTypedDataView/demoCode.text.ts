@@ -1,13 +1,21 @@
 import * as ethers from 'ethers';
 import {activateStargazerProviders} from 'src/utils';
 
-const {ethProvider} = await activateStargazerProviders();
+const {ethProvider, polygonProvider} = await activateStargazerProviders();
+
+const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon'
+const chainId = selectedNetwork === 'ethereum' ? 5 : 80001; // 5 = Goerli | 80001 = Maticmum testnet
+
+const PROVIDERS = {
+  ethereum: ethProvider,
+  polygon: polygonProvider
+};
 
 // Build your EIP-712 domain
 const domain = {
   name: 'Stargazer Demo',
   version: '1.0.0',
-  chainId: 5,
+  chainId, 
   verifyingContract: '0xabcdefABCDEF1234567890abcdefABCDEF123456'
 };
 
@@ -38,9 +46,11 @@ const value = {
 // We are using ethers to build a EIP-712 payload from our domain, types and value.
 const messagePayload = ethers.utils._TypedDataEncoder.getPayload(domain, types, value);
 
-const accounts = await ethProvider.request({method: 'eth_accounts'});
+const provider = PROVIDERS[selectedNetwork];
 
-const signature = await ethProvider.request({
+const accounts = await provider.request({method: 'eth_accounts'});
+
+const signature = await provider.request({
   method: 'eth_signTypedData',
   params: [accounts[0], messagePayload]
 });
