@@ -13,9 +13,9 @@ import {STARGAZER_CHAINS} from 'src/utils/constants';
 const Erc20TransferView = () => {
   const stargazerProviders = useStargazerProviders();
 
-  const [value, setValue] = useState(1);
-  const [sender, setSender] = useState('0xe2Db5a1CB999b99c858dD0afe413dD11A8965E39');
-  const [receiver, setReceiver] = useState('0xf4CB0d8032601520caD732B9700BBe3514E7c7DB');
+  const [value, setValue] = useState(0);
+  const [sender, setSender] = useState('');
+  const [receiver, setReceiver] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
