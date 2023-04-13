@@ -36,16 +36,18 @@ const ContractWriteCallView = () => {
 
   const doWriteCall = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
-    const {ethProvider, polygonProvider} = await stargazerProviders.connect();
+    const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
 
     const PROVIDERS = {
       [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-      [STARGAZER_CHAINS.POLYGON]: polygonProvider
+      [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+      [STARGAZER_CHAINS.BSC]: bscProvider
     };
 
     const CONTRACT_ADDRESSES = {
       [STARGAZER_CHAINS.ETHEREUM]: '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2',
-      [STARGAZER_CHAINS.POLYGON]: '0xce4E723904f5a679eACB9D70710210024F62378C'
+      [STARGAZER_CHAINS.POLYGON]: '0xce4E723904f5a679eACB9D70710210024F62378C',
+      [STARGAZER_CHAINS.BSC]: '0x53c50ceaDc5A97F440608730d7B7D492F628c1cD'
     };
 
     try {
@@ -100,6 +102,12 @@ const ContractWriteCallView = () => {
           <Textarea
             label="Polygon Smart Contract (Stargazer Greeter)"
             value="0xce4E723904f5a679eACB9D70710210024F62378C"
+            readOnly
+            disabled
+          />
+          <Textarea
+            label="BSC Smart Contract (Stargazer Greeter)"
+            value="0x53c50ceaDc5A97F440608730d7B7D492F628c1cD"
             readOnly
             disabled
           />

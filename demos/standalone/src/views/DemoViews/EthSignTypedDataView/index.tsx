@@ -52,18 +52,25 @@ const EthSignMessageView = () => {
   const doSignTypedData = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
     try {
-      const {ethProvider, polygonProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
 
       const PROVIDERS = {
         [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider
+      };
+
+      const TEST_CHAIN_IDS = {
+        ethereum: 5, // Goerli
+        polygon: 80001, // Maticmum
+        bsc: 97 // BSC testnet
       };
 
       const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
 
       const accounts = await provider.request({method: 'eth_accounts', params: []});
 
-      const chainId = selectedProvider === STARGAZER_CHAINS.ETHEREUM ? 5 : 80001;
+      const chainId = TEST_CHAIN_IDS[selectedProvider];
 
       // Build your EIP-712 domain
       const domain = {

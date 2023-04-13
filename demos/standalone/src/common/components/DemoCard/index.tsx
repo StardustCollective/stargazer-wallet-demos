@@ -6,7 +6,12 @@ import {Prism} from '@mantine/prism';
 import {useStargazerProviders} from 'src/utils';
 
 import styles from './index.module.scss';
-import {STARGAZER_CHAINS} from 'src/utils/constants';
+import {
+  BSC_TESTNET,
+  ETHEREUM_TESTNET,
+  POLYGON_TESTNET,
+  STARGAZER_CHAINS
+} from 'src/utils/constants';
 
 const DemoCard = ({
   title,
@@ -34,6 +39,7 @@ const DemoCard = ({
   const [open, setOpen] = useState(false);
   const [chainId, setChainId] = useState('0x0');
   const [polygonChainId, setPolygonChainId] = useState('0x0');
+  const [bscChainId, setBscChainId] = useState('0x0');
   const [selectedProvider, setSelectedProvider] = useState(STARGAZER_CHAINS.ETHEREUM);
   const [dagChainId, setDagChainId] = useState(0);
 
@@ -67,6 +73,17 @@ const DemoCard = ({
         setPolygonChainId(polygonChainId);
       })();
       (async () => {
+        if (!stargazerProviders.bscProvider) {
+          return;
+        }
+
+        const bscChainId = await stargazerProviders.bscProvider.request({
+          method: 'eth_chainId',
+          params: []
+        });
+        setBscChainId(bscChainId);
+      })();
+      (async () => {
         if (!stargazerProviders.dagProvider) {
           return;
         }
@@ -82,6 +99,7 @@ const DemoCard = ({
     stargazerProviders.connected,
     stargazerProviders.ethProvider,
     stargazerProviders.polygonProvider,
+    stargazerProviders.bscProvider,
     stargazerProviders.dagProvider
   ]);
 
@@ -112,7 +130,8 @@ const DemoCard = ({
                 value={selectedProvider}
                 data={[
                   {label: 'Ethereum', value: STARGAZER_CHAINS.ETHEREUM},
-                  {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON}
+                  {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON},
+                  {label: 'Binance Smart Chain', value: STARGAZER_CHAINS.BSC}
                 ]}
                 onChange={(value) => setSelectedProvider(value as STARGAZER_CHAINS)}
               />
@@ -122,7 +141,7 @@ const DemoCard = ({
             !isDAGdemo &&
             selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
             chainId !== '0x0' &&
-            chainId !== '0x5' && (
+            chainId !== ETHEREUM_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Goerli network, your wallet needs to be on the same
                 network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
@@ -133,11 +152,22 @@ const DemoCard = ({
             !isDAGdemo &&
             selectedProvider === STARGAZER_CHAINS.POLYGON &&
             polygonChainId !== '0x0' &&
-            polygonChainId !== '0x13881' && (
+            polygonChainId !== POLYGON_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Maticmum Testnet network, your wallet needs to be on
                 the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
                 {'>'} Polygon Network {'>'} and choose Maticmum Testnet.
+              </Alert>
+            )}
+          {walletRequired &&
+            !isDAGdemo &&
+            selectedProvider === STARGAZER_CHAINS.BSC &&
+            bscChainId !== '0x0' &&
+            bscChainId !== BSC_TESTNET && (
+              <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+                All demos were designed on the BSC Testnet network, your wallet needs to be on the
+                same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+                BSC Network {'>'} and choose BSC Testnet.
               </Alert>
             )}
           {walletRequired && isDAGdemo && dagChainId !== 0 && dagChainId !== 3 && (
@@ -152,11 +182,15 @@ const DemoCard = ({
               (walletRequired &&
                 !isDAGdemo &&
                 selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
-                chainId !== '0x5') ||
+                chainId !== ETHEREUM_TESTNET) ||
               (walletRequired &&
                 !isDAGdemo &&
                 selectedProvider === STARGAZER_CHAINS.POLYGON &&
-                polygonChainId !== '0x13881') ||
+                polygonChainId !== POLYGON_TESTNET) ||
+              (walletRequired &&
+                !isDAGdemo &&
+                selectedProvider === STARGAZER_CHAINS.BSC &&
+                bscChainId !== BSC_TESTNET) ||
               (walletRequired && isDAGdemo && dagChainId !== 3) ||
               (walletRequired && !stargazerProviders.connected) ||
               isLoading ||

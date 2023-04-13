@@ -25,6 +25,13 @@ const activateStargazerProviders = async () => {
   const polygonProvider = walletProvider.getProvider('polygon');
   await polygonProvider.activate();
 
+   /**
+   * An standard EIP-1193 Provider.
+   */
+
+  const bscProvider = walletProvider.getProvider('bsc');
+  await bscProvider.activate();
+
   /**
    * A compliant EIP-1193 Provider (JSON-RPC).
    */
@@ -34,11 +41,12 @@ const activateStargazerProviders = async () => {
   return {
     ethProvider,
     polygonProvider,
+    bscProvider,
     dagProvider
   };
 };
 
-const {ethProvider, dagProvider, polygonProvider} = await activateStargazerProviders();
+const {ethProvider, dagProvider, polygonProvider, bscProvider} = await activateStargazerProviders();
 
 /**
  * Each provider gets enabled on the first request
@@ -46,6 +54,8 @@ const {ethProvider, dagProvider, polygonProvider} = await activateStargazerProvi
 const ethAccounts = await ethProvider.request({method: 'eth_accounts', params: []});
 
 const polygonAccounts = await polygonProvider.request({method: 'eth_accounts', params: []});
+
+const bscAccounts = await bscProvider.request({method: 'eth_accounts', params: []});
 
 const dagAccounts = await dagProvider.request({method: 'dag_accounts', params: []});
 

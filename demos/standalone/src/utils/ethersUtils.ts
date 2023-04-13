@@ -10,7 +10,7 @@ declare global {
 
   type StargazerEIPProviderManager = {
     version: string | number;
-    getProvider: (chain: 'ethereum' | 'constellation' | 'polygon') => StargazerEIPProvider;
+    getProvider: (chain: 'ethereum' | 'constellation' | 'polygon' | 'bsc') => StargazerEIPProvider;
     isConnected: () => Promise<boolean>;
     enable: () => Promise<string[]>;
   };
@@ -46,6 +46,9 @@ const activateStargazerProviders = async () => {
   const polygonProvider = walletProvider.getProvider('polygon');
   await polygonProvider.activate();
 
+  const bscProvider = walletProvider.getProvider('bsc');
+  await bscProvider.activate();
+
   /**
    * A compliant EIP-1193 Provider (JSON-RPC).
    */
@@ -55,13 +58,15 @@ const activateStargazerProviders = async () => {
   return {
     ethProvider,
     dagProvider,
-    polygonProvider
+    polygonProvider,
+    bscProvider
   };
 };
 
 const useStargazerProviders = () => {
   const [ethProvider, setEthProvider] = useState<StargazerEIPProvider | null>(null);
   const [polygonProvider, setPolygonProvider] = useState<StargazerEIPProvider | null>(null);
+  const [bscProvider, setBscProvider] = useState<StargazerEIPProvider | null>(null);
   const [dagProvider, setDagProvider] = useState<StargazerEIPProvider | null>(null);
 
   const [loading, setLoading] = useState(false);
@@ -75,13 +80,15 @@ const useStargazerProviders = () => {
   const doConnect = async () => {
     setLoading(true);
     try {
-      const {ethProvider, polygonProvider, dagProvider} = await activateStargazerProviders();
+      const {ethProvider, polygonProvider, bscProvider, dagProvider} =
+        await activateStargazerProviders();
 
       const ethAccounts = await ethProvider.request({method: 'eth_accounts', params: []});
       const dagAccounts = await dagProvider.request({method: 'dag_accounts', params: []});
 
       setEthProvider(ethProvider);
       setPolygonProvider(polygonProvider);
+      setBscProvider(bscProvider);
       setDagProvider(dagProvider);
 
       setEthAccounts(ethAccounts);
@@ -89,7 +96,7 @@ const useStargazerProviders = () => {
 
       setLoading(false);
 
-      return {ethProvider, polygonProvider, ethAccounts, dagProvider, dagAccounts};
+      return {ethProvider, polygonProvider, bscProvider, ethAccounts, dagProvider, dagAccounts};
     } catch (e) {
       setLoading(false);
       setError(String(e));
@@ -107,7 +114,8 @@ const useStargazerProviders = () => {
       dagAccounts,
       ethProvider,
       ethAccounts,
-      polygonProvider
+      polygonProvider,
+      bscProvider
     };
   }
 

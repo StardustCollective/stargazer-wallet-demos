@@ -26,16 +26,18 @@ const Erc20WriteCallView = () => {
     setLoading(true);
 
     try {
-      const {ethProvider, polygonProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
 
       const PROVIDERS = {
         [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider
       };
 
       const CONTRACT_ADDRESSES = {
         [STARGAZER_CHAINS.ETHEREUM]: '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65',
-        [STARGAZER_CHAINS.POLYGON]: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5'
+        [STARGAZER_CHAINS.POLYGON]: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5',
+        [STARGAZER_CHAINS.BSC]: '0x3Ea98D16634aB9fD01e7d749a8711736DBE95440'
       };
 
       const StargazerTokenAddress = CONTRACT_ADDRESSES[selectedProvider];
@@ -92,6 +94,12 @@ const Erc20WriteCallView = () => {
           <Textarea
             label="Polygon ERC20 Contract (Stargazer Token)"
             value="0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5"
+            readOnly
+            disabled
+          />
+          <Textarea
+            label="BSC ERC20 Contract (Stargazer Token)"
+            value="0x3Ea98D16634aB9fD01e7d749a8711736DBE95440"
             readOnly
             disabled
           />

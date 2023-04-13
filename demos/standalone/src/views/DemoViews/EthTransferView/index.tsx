@@ -25,11 +25,12 @@ const EthTransferView = () => {
     setLoading(true);
 
     try {
-      const {ethProvider, polygonProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
 
       const PROVIDERS = {
         [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider
       };
 
       const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
