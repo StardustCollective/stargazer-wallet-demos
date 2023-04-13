@@ -1,14 +1,20 @@
 import * as ethers from 'ethers';
 import {activateStargazerProviders} from 'src/utils';
 
-const {ethProvider, polygonProvider, bscProvider} = await activateStargazerProviders();
+const {
+  ethProvider, 
+  polygonProvider, 
+  bscProvider, 
+  avalancheProvider
+} = await activateStargazerProviders();
 
-const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc'
+const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
 
 const TEST_CHAIN_IDS = {
-  ethereum: 5,      // Goerli
-  polygon: 80001,   // Maticmum
-  bsc: 97           // BSC testnet
+  ethereum: 5,        // Goerli
+  polygon: 80001,     // Maticmum
+  bsc: 97,            // BSC testnet
+  avalanche: 43113    // Fuji testnet
 };
 
 const chainId = TEST_CHAIN_IDS[selectedNetwork];
@@ -16,7 +22,8 @@ const chainId = TEST_CHAIN_IDS[selectedNetwork];
 const PROVIDERS = {
   ethereum: ethProvider,
   polygon: polygonProvider,
-  bsc: bscProvider
+  bsc: bscProvider,
+  avalanche: avalancheProvider
 };
 
 // Build your EIP-712 domain

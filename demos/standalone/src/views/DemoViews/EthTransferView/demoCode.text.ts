@@ -2,14 +2,20 @@ import * as ethers from 'ethers';
 
 import {activateStargazerProviders} from 'src/utils';
 
-const {ethProvider, polygonProvider, bscProvider} = await activateStargazerProviders();
+const {
+  ethProvider, 
+  polygonProvider, 
+  bscProvider, 
+  avalancheProvider
+} = await activateStargazerProviders();
 
-const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc'
+const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
 
 const PROVIDERS = {
   ethereum: ethProvider,
   polygon: polygonProvider,
-  bsc: bscProvider
+  bsc: bscProvider,
+  avalanche: avalancheProvider
 };
 
 const provider = PROVIDERS[selectedNetwork];

@@ -7,7 +7,11 @@ import {DemoCard} from 'src/common/components';
 import {StargazerGreeterABI, StargazerGreeter} from 'src/utils/interfaces/StargazerGreeter';
 
 import demoCodeText from './demoCode.text.ts';
-import {STARGAZER_CHAINS} from 'src/utils/constants';
+import {
+  STARGAZER_CHAINS,
+  STARGAZER_GREETER_ADDRESSES,
+  STARGAZER_GREETER_STRING
+} from 'src/utils/constants';
 
 const ContractReadCallView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -21,25 +25,21 @@ const ContractReadCallView = () => {
     setLoading(true);
 
     try {
-      const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
       const PROVIDERS = {
         [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
         [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
       };
 
       const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
 
       const library = new ethers.providers.Web3Provider(provider, 'any');
 
-      const CONTRACT_ADDRESSES = {
-        [STARGAZER_CHAINS.ETHEREUM]: '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2',
-        [STARGAZER_CHAINS.POLYGON]: '0xce4E723904f5a679eACB9D70710210024F62378C',
-        [STARGAZER_CHAINS.BSC]: '0x53c50ceaDc5A97F440608730d7B7D492F628c1cD'
-      };
-
-      const StargazerGreeterAddress: string = CONTRACT_ADDRESSES[selectedProvider];
+      const StargazerGreeterAddress: string = STARGAZER_GREETER_ADDRESSES[selectedProvider];
 
       const contract = new ethers.Contract(
         StargazerGreeterAddress,
@@ -71,21 +71,10 @@ const ContractReadCallView = () => {
       inputs={
         <>
           <Textarea
-            label="Ethereum Smart Contract (Stargazer Greeter)"
-            value="0x0F1568746563F6F1A01C76B7cfca4390d81D97b2"
+            label="Smart Contract Address (Stargazer Greeter)"
+            value={STARGAZER_GREETER_STRING}
             readOnly
-            disabled
-          />
-          <Textarea
-            label="Polygon Smart Contract (Stargazer Greeter)"
-            value="0xce4E723904f5a679eACB9D70710210024F62378C"
-            readOnly
-            disabled
-          />
-          <Textarea
-            label="BSC Smart Contract (Stargazer Greeter)"
-            value="0x53c50ceaDc5A97F440608730d7B7D492F628c1cD"
-            readOnly
+            minRows={5}
             disabled
           />
         </>

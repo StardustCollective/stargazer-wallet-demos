@@ -20,12 +20,14 @@ const EthSignMessageView = () => {
   const doSignMessage = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
     try {
-      const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
       const PROVIDERS = {
         [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
         [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
       };
 
       const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];

@@ -52,18 +52,21 @@ const EthSignMessageView = () => {
   const doSignTypedData = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
     try {
-      const {ethProvider, polygonProvider, bscProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
       const PROVIDERS = {
         [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
         [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
       };
 
       const TEST_CHAIN_IDS = {
         ethereum: 5, // Goerli
         polygon: 80001, // Maticmum
-        bsc: 97 // BSC testnet
+        bsc: 97, // BSC testnet
+        avalanche: 43113 // Fuji testnet
       };
 
       const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
