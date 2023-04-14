@@ -7,9 +7,14 @@ import {useWeb3React} from 'src/utils';
 import {StargazerGreeterABI, StargazerGreeter} from 'src/utils/interfaces/StargazerGreeter';
 
 import demoCodeText from './demoCode.text.ts';
+import {
+  CHAIN_ID_TO_PROVIDER,
+  STARGAZER_GREETER_ADDRESSES,
+  STARGAZER_GREETER_STRING
+} from 'src/common/consts/constants';
 
 const ContractReadCallView = () => {
-  const {library} = useWeb3React();
+  const {library, chainId} = useWeb3React();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -18,6 +23,8 @@ const ContractReadCallView = () => {
 
   const doReadCall = async () => {
     setLoading(true);
+    setError('');
+    setGreeting('');
 
     if (library === undefined) {
       setError('Unable to get library provider (ethers.js)');
@@ -25,7 +32,8 @@ const ContractReadCallView = () => {
     }
 
     try {
-      const StargazerGreeterAddress = '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2';
+      const provider = CHAIN_ID_TO_PROVIDER[chainId!];
+      const StargazerGreeterAddress = STARGAZER_GREETER_ADDRESSES[provider];
 
       const contract = new ethers.Contract(
         StargazerGreeterAddress,
@@ -57,11 +65,12 @@ const ContractReadCallView = () => {
       inputs={
         <>
           <Textarea
-            label="Smart Contract (Stargazer Greeter)"
-            value="0x0F1568746563F6F1A01C76B7cfca4390d81D97b2"
+            label="Smart Contract Address (Stargazer Greeter)"
+            value={STARGAZER_GREETER_STRING}
             readOnly
+            minRows={5}
             disabled
-          ></Textarea>
+          />
         </>
       }
       outputs={<>{greeting && <Textarea label="Greeting" readOnly value={greeting}></Textarea>}</>}

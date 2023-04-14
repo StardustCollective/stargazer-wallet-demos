@@ -8,9 +8,14 @@ import {useWeb3React} from 'src/utils';
 import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
+import {
+  CHAIN_ID_TO_PROVIDER,
+  STARGAZER_SAMPLE_TOKEN_ADDRESSES,
+  STARGAZER_TOKEN_STRING
+} from 'src/common/consts/constants';
 
 const Erc20WriteCallView = () => {
-  const {library, connector} = useWeb3React();
+  const {library, connector, chainId} = useWeb3React();
 
   const [value, setValue] = useState(0);
   const [sender, setSender] = useState('');
@@ -23,13 +28,18 @@ const Erc20WriteCallView = () => {
 
   const doWriteCall = async () => {
     setLoading(true);
+    setError('');
+    setTrxStatus('');
+    setHash('');
+
     if (library === undefined) {
       setError('Unable to get library provider (ethers.js)');
       return;
     }
 
     try {
-      const StargazerTokenAddress = '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65';
+      const provider = CHAIN_ID_TO_PROVIDER[chainId!];
+      const StargazerTokenAddress = STARGAZER_SAMPLE_TOKEN_ADDRESSES[provider];
 
       const signer = library.getSigner(sender);
 
@@ -71,11 +81,12 @@ const Erc20WriteCallView = () => {
       inputs={
         <>
           <Textarea
-            label="ERC20 Contract (Stargazer Token)"
-            value="0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65"
+            label="Smart Contract Address (Stargazer Token)"
+            value={STARGAZER_TOKEN_STRING}
             readOnly
+            minRows={5}
             disabled
-          ></Textarea>
+          />
           {connector instanceof StargazerConnector && (
             <Select
               label="Sender"

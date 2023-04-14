@@ -33,6 +33,9 @@ const DagSignMessageView = () => {
     }
 
     setLoading(true);
+    setSignature('');
+    setPublicKey('');
+    setError('');
     try {
       if (connector instanceof StargazerConnector) {
         const signatureRequest = {

@@ -8,6 +8,11 @@ import {useWeb3React} from 'src/utils';
 import {StargazerGreeterABI, StargazerGreeter} from 'src/utils/interfaces/StargazerGreeter';
 
 import demoCodeText from './demoCode.text.ts';
+import {
+  CHAIN_ID_TO_PROVIDER,
+  STARGAZER_GREETER_ADDRESSES,
+  STARGAZER_GREETER_STRING
+} from 'src/common/consts/constants';
 
 const greetings = [
   {value: '0', label: '(0) Good Morning!'},
@@ -23,7 +28,7 @@ const greetings = [
 ];
 
 const ContractWriteCallView = () => {
-  const {library, connector} = useWeb3React();
+  const {library, connector, chainId} = useWeb3React();
 
   const [greetingId, setGreetingId] = useState('0');
   const [sender, setSender] = useState('');
@@ -36,13 +41,17 @@ const ContractWriteCallView = () => {
 
   const doWriteCall = async () => {
     setLoading(true);
+    setError('');
+    setHash('');
+    setTrxStatus('');
     if (library === undefined) {
       setError('Unable to get library provider (ethers.js)');
       return;
     }
 
     try {
-      const StargazerGreeterAddress = '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2';
+      const provider = CHAIN_ID_TO_PROVIDER[chainId!];
+      const StargazerGreeterAddress = STARGAZER_GREETER_ADDRESSES[provider];
 
       const signer = library.getSigner(sender);
 
@@ -81,11 +90,12 @@ const ContractWriteCallView = () => {
       inputs={
         <>
           <Textarea
-            label="Smart Contract (Stargazer Greeter)"
-            value="0x0F1568746563F6F1A01C76B7cfca4390d81D97b2"
+            label="Smart Contract Address (Stargazer Greeter)"
+            value={STARGAZER_GREETER_STRING}
             readOnly
+            minRows={5}
             disabled
-          ></Textarea>
+          />
           {connector instanceof StargazerConnector && (
             <Select
               label="Sender"
