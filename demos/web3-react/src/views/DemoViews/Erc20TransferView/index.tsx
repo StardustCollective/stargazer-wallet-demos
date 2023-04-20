@@ -93,7 +93,7 @@ const Erc20TransferView = () => {
             onChange={(event) => setReceiver(event.currentTarget.value)}
           ></Textarea>
           <NumberInput
-            label="Value"
+            label="Value (SST)"
             value={value}
             onChange={(value) => setValue(value ?? 0)}
           ></NumberInput>
