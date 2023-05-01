@@ -38,7 +38,7 @@ const DEFAULT_VALUE = {
 };
 
 const EthSignMessageView = () => {
-  const {account, connector} = useWeb3React();
+  const {account, connector, chainId} = useWeb3React();
 
   const [types, setTypes] = useState(JSON.stringify(DEFAULT_TYPES, null, 2));
   const [value, setValue] = useState(JSON.stringify(DEFAULT_VALUE, null, 2));
@@ -51,10 +51,17 @@ const EthSignMessageView = () => {
 
   const doSignTypedData = async () => {
     setLoading(true);
+    setError('');
+    setHash('');
+    setSignature('');
+
     try {
       if (connector instanceof StargazerConnector) {
         // Build your EIP-712 domain
-        const domain = STRICT_DOMAIN;
+        const domain = {
+          ...STRICT_DOMAIN,
+          chainId
+        };
 
         // Build your EIP-712 types
         const typesParsed = JSON.parse(types);
@@ -71,7 +78,20 @@ const EthSignMessageView = () => {
 
         const hash = ethers.utils._TypedDataEncoder.hash(domain, typesParsed, valueParsed);
 
-        const signature = await connector.ethProvider.request({
+        const CHAIN_ID_TO_PROVIDER = {
+          1: connector.ethProvider,
+          5: connector.ethProvider,
+          137: connector.polygonProvider,
+          80001: connector.polygonProvider,
+          56: connector.bscProvider,
+          97: connector.bscProvider,
+          43114: connector.avalancheProvider,
+          43113: connector.avalancheProvider
+        };
+
+        const provider = CHAIN_ID_TO_PROVIDER[chainId!];
+
+        const signature = await provider.request({
           method: 'eth_signTypedData',
           params: [account, messagePayload]
         });
@@ -91,7 +111,7 @@ const EthSignMessageView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ETH - Sign Typed Data"
+      title="EVM - Sign Typed Data"
       codeExample={demoCodeText}
       actionButtonClickContent="Sign Typed Data"
       onActionButtonClick={doSignTypedData}

@@ -6,6 +6,7 @@ import {useStargazerProviders} from 'src/utils';
 import {DemoCard} from 'src/common/components';
 
 import demoCodeText from './demoCode.text.ts';
+import {STARGAZER_CHAINS} from 'src/utils/constants';
 
 const EthTransferView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -20,13 +21,23 @@ const EthTransferView = () => {
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doTransfer = async () => {
+  const doTransfer = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
 
     try {
-      const {ethProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
-      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
+      const PROVIDERS = {
+        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
+      };
+
+      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+
+      const library = new ethers.providers.Web3Provider(provider, 'any');
 
       const valueInWei = ethers.BigNumber.from(value * 1e9).toHexString();
 
@@ -52,9 +63,9 @@ const EthTransferView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ETH - Transfer"
+      title="EVM - Transfer"
       codeExample={demoCodeText}
-      actionButtonClickContent="Transfer ETH"
+      actionButtonClickContent="Transfer"
       onActionButtonClick={doTransfer}
       onWalletConnected={stargazerProviders.connect}
       isLoading={loading}

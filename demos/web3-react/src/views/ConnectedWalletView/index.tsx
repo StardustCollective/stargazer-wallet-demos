@@ -9,7 +9,8 @@ import {
   Kbd,
   Paper,
   Button,
-  Loader
+  Loader,
+  Select
 } from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
 import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
@@ -19,12 +20,25 @@ import useDagChainId from 'src/utils/useDagChainId';
 import {stargazerConnector} from 'src/common/consts';
 
 import styles from './index.module.scss';
+import {STARGAZER_CHAINS} from 'src/common/consts/constants';
+import {Chains} from '@stardust-collective/web3-react-stargazer-connector/dist/types/stargazer-types';
 
 const CHAIN_NAMES = {
-  1: 'Ethereum Mainnet (Homestead)',
-  3: 'Ethereum Ropsten Testnet',
-  4: 'Ethereum Rinkeby Testnet',
-  5: 'Ethereum Goerli Testnet'
+  1: 'Ethereum Mainnet',
+  5: 'Ethereum Goerli Testnet',
+  137: 'Polygon Mainnet',
+  80001: 'Polygon Testnet',
+  56: 'BSC Mainnet',
+  97: 'BSC Testnet',
+  43114: 'Avalanche C-Chain',
+  43113: 'Avalanche Fuji Testnet'
+};
+
+const SUPPORTED_CHAINS = {
+  5: 'Ethereum Goerli Testnet',
+  80001: 'Polygon Testnet',
+  97: 'BSC Testnet',
+  43113: 'Avalanche Fuji Testnet'
 };
 
 const DAG_CHAIN_NAMES = {
@@ -36,6 +50,7 @@ const ConnectedWalletView = () => {
   const {activate, account, chainId, connector} = useWeb3React();
   const {dagChainId} = useDagChainId();
 
+  const [selectedProvider, setSelectedProvider] = useState(STARGAZER_CHAINS.ETHEREUM);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -50,6 +65,13 @@ const ConnectedWalletView = () => {
       console.error(e);
     }
     setLoading(false);
+  };
+
+  const switchProvider = async (value: string) => {
+    if (connector instanceof StargazerConnector) {
+      await connector.switchEVMProvider(value as Chains);
+      setSelectedProvider(value as STARGAZER_CHAINS);
+    }
   };
 
   return (
@@ -92,18 +114,56 @@ const ConnectedWalletView = () => {
         )}
         {account && chainId && (
           <Center>
-            <Badge variant="light" color={chainId === 5 ? 'green' : 'yellow'}>
+            <Badge
+              variant="light"
+              color={
+                Object.keys(SUPPORTED_CHAINS).includes(chainId.toString()) ? 'green' : 'yellow'
+              }
+            >
               {CHAIN_NAMES[chainId] ?? 'Unknown Chain Id'}
             </Badge>
           </Center>
         )}
-        {account && typeof chainId === 'number' && chainId !== 5 && (
-          <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-            All demos were designed on the Goerli network, your wallet needs to be on the same
-            network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
-            Network {'>'} and choose Goerli Testnet.
-          </Alert>
-        )}
+        {account &&
+          selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
+          typeof chainId === 'number' &&
+          chainId !== 5 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Goerli network, your wallet needs to be on the same
+              network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum
+              Network {'>'} and choose Goerli Testnet.
+            </Alert>
+          )}
+        {account &&
+          selectedProvider === STARGAZER_CHAINS.POLYGON &&
+          typeof chainId === 'number' &&
+          chainId !== 80001 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Polygon Testnet network, your wallet needs to be on the
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+              Polygon Network {'>'} and choose Polygon Testnet.
+            </Alert>
+          )}
+        {account &&
+          selectedProvider === STARGAZER_CHAINS.BSC &&
+          typeof chainId === 'number' &&
+          chainId !== 97 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the BSC Testnet network, your wallet needs to be on the
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} BSC
+              Network {'>'} and choose BSC Testnet.
+            </Alert>
+          )}
+        {account &&
+          selectedProvider === STARGAZER_CHAINS.AVALANCHE &&
+          typeof chainId === 'number' &&
+          chainId !== 43113 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Avalanche Fuji network, your wallet needs to be on the
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+              Avalanche Network {'>'} and choose Fuji Testnet.
+            </Alert>
+          )}
         {account && dagChainId && (
           <Center>
             <Badge variant="light" color={dagChainId === 3 ? 'green' : 'yellow'}>
@@ -117,6 +177,21 @@ const ConnectedWalletView = () => {
             network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'> '}
             Constellation Network {'>'} and choose Testnet 2.0.
           </Alert>
+        )}
+        {account && (
+          <Stack>
+            <Select
+              label={'Select EVM network'}
+              value={selectedProvider}
+              data={[
+                {label: 'Ethereum', value: STARGAZER_CHAINS.ETHEREUM},
+                {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON},
+                {label: 'Binance Smart Chain', value: STARGAZER_CHAINS.BSC},
+                {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE}
+              ]}
+              onChange={switchProvider}
+            />
+          </Stack>
         )}
       </Stack>
     </Paper>

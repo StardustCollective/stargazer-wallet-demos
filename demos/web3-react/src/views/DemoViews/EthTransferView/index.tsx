@@ -23,6 +23,10 @@ const EthTransferView = () => {
 
   const doTransfer = async () => {
     setLoading(true);
+    setError('');
+    setHash('');
+    setTrxStatus('');
+
     if (library === undefined) {
       setError('Unable to get library provider (ethers.js)');
       return;
@@ -53,9 +57,9 @@ const EthTransferView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ETH - Transfer"
+      title="EVM - Transfer"
       codeExample={demoCodeText}
-      actionButtonClickContent="Transfer ETH"
+      actionButtonClickContent="Transfer"
       onActionButtonClick={doTransfer}
       isLoading={loading}
       error={error}

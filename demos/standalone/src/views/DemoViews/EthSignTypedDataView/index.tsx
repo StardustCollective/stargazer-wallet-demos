@@ -6,6 +6,7 @@ import {useStargazerProviders} from 'src/utils';
 import {DemoCard} from 'src/common/components';
 
 import demoCodeText from './demoCode.text.ts';
+import {STARGAZER_CHAINS} from 'src/utils/constants';
 
 const STRICT_DOMAIN = {
   name: 'Stargazer Demo',
@@ -48,15 +49,37 @@ const EthSignMessageView = () => {
   const [hash, setHash] = useState('');
   const [signature, setSignature] = useState('');
 
-  const doSignTypedData = async () => {
+  const doSignTypedData = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
     try {
-      const {ethProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
-      const accounts = await ethProvider.request({method: 'eth_accounts', params: []});
+      const PROVIDERS = {
+        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
+      };
+
+      const TEST_CHAIN_IDS = {
+        ethereum: 5, // Goerli
+        polygon: 80001, // Maticmum
+        bsc: 97, // BSC testnet
+        avalanche: 43113 // Fuji testnet
+      };
+
+      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+
+      const accounts = await provider.request({method: 'eth_accounts', params: []});
+
+      const chainId = TEST_CHAIN_IDS[selectedProvider];
 
       // Build your EIP-712 domain
-      const domain = STRICT_DOMAIN;
+      const domain = {
+        ...STRICT_DOMAIN,
+        chainId
+      };
 
       // Build your EIP-712 types
       const typesParsed = JSON.parse(types);
@@ -73,7 +96,7 @@ const EthSignMessageView = () => {
 
       const hash = ethers.utils._TypedDataEncoder.hash(domain, typesParsed, valueParsed);
 
-      const signature = await ethProvider.request({
+      const signature = await provider.request({
         method: 'eth_signTypedData',
         params: [accounts[0], messagePayload]
       });
@@ -92,7 +115,7 @@ const EthSignMessageView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ETH - Sign Typed Data"
+      title="EVM - Sign Typed Data"
       codeExample={demoCodeText}
       actionButtonClickContent="Sign Typed Data"
       onActionButtonClick={doSignTypedData}

@@ -22,6 +22,9 @@ const DagTransferView = () => {
 
   const doTransfer = async () => {
     setLoading(true);
+    setError('');
+    setHash('');
+    setTrxStatus('');
 
     try {
       if (connector instanceof StargazerConnector) {
