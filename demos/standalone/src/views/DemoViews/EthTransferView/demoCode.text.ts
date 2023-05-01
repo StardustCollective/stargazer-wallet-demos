@@ -2,9 +2,25 @@ import * as ethers from 'ethers';
 
 import {activateStargazerProviders} from 'src/utils';
 
-const {ethProvider} = await activateStargazerProviders();
+const {
+  ethProvider, 
+  polygonProvider, 
+  bscProvider, 
+  avalancheProvider
+} = await activateStargazerProviders();
 
-const library = new ethers.providers.Web3Provider(ethProvider, 'any');
+const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
+
+const PROVIDERS = {
+  ethereum: ethProvider,
+  polygon: polygonProvider,
+  bsc: bscProvider,
+  avalanche: avalancheProvider
+};
+
+const provider = PROVIDERS[selectedNetwork];
+
+const library = new ethers.providers.Web3Provider(provider, 'any');
 
 const oneGwei = ethers.BigNumber.from(1 * 1e9).toHexString();
 

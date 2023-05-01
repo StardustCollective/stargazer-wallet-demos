@@ -7,6 +7,11 @@ import {DemoCard} from 'src/common/components';
 import {StargazerGreeterABI, StargazerGreeter} from 'src/utils/interfaces/StargazerGreeter';
 
 import demoCodeText from './demoCode.text.ts';
+import {
+  STARGAZER_CHAINS,
+  STARGAZER_GREETER_ADDRESSES,
+  STARGAZER_GREETER_STRING
+} from 'src/utils/constants';
 
 const ContractReadCallView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -16,15 +21,25 @@ const ContractReadCallView = () => {
 
   const [greeting, setGreeting] = useState('');
 
-  const doReadCall = async () => {
+  const doReadCall = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
 
     try {
-      const {ethProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
-      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
+      const PROVIDERS = {
+        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
+      };
 
-      const StargazerGreeterAddress = '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2';
+      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+
+      const library = new ethers.providers.Web3Provider(provider, 'any');
+
+      const StargazerGreeterAddress: string = STARGAZER_GREETER_ADDRESSES[selectedProvider];
 
       const contract = new ethers.Contract(
         StargazerGreeterAddress,
@@ -56,11 +71,12 @@ const ContractReadCallView = () => {
       inputs={
         <>
           <Textarea
-            label="Smart Contract (Stargazer Greeter)"
-            value="0x0F1568746563F6F1A01C76B7cfca4390d81D97b2"
+            label="Smart Contract Address (Stargazer Greeter)"
+            value={STARGAZER_GREETER_STRING}
             readOnly
+            minRows={5}
             disabled
-          ></Textarea>
+          />
         </>
       }
       outputs={<>{greeting && <Textarea label="Greeting" readOnly value={greeting}></Textarea>}</>}

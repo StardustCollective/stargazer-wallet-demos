@@ -8,9 +8,10 @@ import {useWeb3React} from 'src/utils';
 import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
+import {CHAIN_ID_TO_PROVIDER, STARGAZER_SAMPLE_TOKEN_ADDRESSES} from 'src/common/consts/constants';
 
 const Erc20TransferView = () => {
-  const {connector, library} = useWeb3React();
+  const {connector, library, chainId} = useWeb3React();
 
   const [value, setValue] = useState(0);
   const [sender, setSender] = useState('');
@@ -23,13 +24,18 @@ const Erc20TransferView = () => {
 
   const doTransfer = async () => {
     setLoading(true);
+    setError('');
+    setTrxStatus('');
+    setHash('');
+
     if (library === undefined) {
       setError('Unable to get library provider (ethers.js)');
       return;
     }
 
     try {
-      const StargazerTokenAddress = '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65';
+      const provider = CHAIN_ID_TO_PROVIDER[chainId!];
+      const StargazerTokenAddress = STARGAZER_SAMPLE_TOKEN_ADDRESSES[provider];
 
       const signer = library.getSigner(sender);
 
@@ -87,7 +93,7 @@ const Erc20TransferView = () => {
             onChange={(event) => setReceiver(event.currentTarget.value)}
           ></Textarea>
           <NumberInput
-            label="Value"
+            label="Value (SST)"
             value={value}
             onChange={(value) => setValue(value ?? 0)}
           ></NumberInput>

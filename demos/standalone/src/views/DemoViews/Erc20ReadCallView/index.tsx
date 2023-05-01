@@ -8,6 +8,11 @@ import {DemoCard} from 'src/common/components';
 import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
+import {
+  STARGAZER_CHAINS,
+  STARGAZER_SAMPLE_TOKEN_ADDRESSES,
+  STARGAZER_TOKEN_STRING
+} from 'src/utils/constants';
 
 const Erc20ReadCallView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -17,15 +22,24 @@ const Erc20ReadCallView = () => {
 
   const [decimals, setDecimals] = useState('');
 
-  const doReadCall = async () => {
+  const doReadCall = async (selectedProvider: STARGAZER_CHAINS) => {
     setLoading(true);
 
     try {
-      const {ethProvider} = await stargazerProviders.connect();
+      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
+        await stargazerProviders.connect();
 
-      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
+      const PROVIDERS = {
+        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
+        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
+        [STARGAZER_CHAINS.BSC]: bscProvider,
+        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
+      };
 
-      const StargazerTokenAddress = '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65';
+      const StargazerTokenAddress: string = STARGAZER_SAMPLE_TOKEN_ADDRESSES[selectedProvider];
+      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+
+      const library = new ethers.providers.Web3Provider(provider, 'any');
 
       const contract = new ethers.Contract(
         StargazerTokenAddress,
@@ -57,11 +71,12 @@ const Erc20ReadCallView = () => {
       inputs={
         <>
           <Textarea
-            label="ERC20 Contract (Stargazer Token)"
-            value="0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65"
+            label="Smart Contract Address (Stargazer Token)"
+            value={STARGAZER_TOKEN_STRING}
             readOnly
+            minRows={5}
             disabled
-          ></Textarea>
+          />
         </>
       }
       outputs={

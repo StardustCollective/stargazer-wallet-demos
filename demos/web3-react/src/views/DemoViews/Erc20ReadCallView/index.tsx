@@ -7,9 +7,14 @@ import {useWeb3React} from 'src/utils';
 import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
+import {
+  CHAIN_ID_TO_PROVIDER,
+  STARGAZER_SAMPLE_TOKEN_ADDRESSES,
+  STARGAZER_TOKEN_STRING
+} from 'src/common/consts/constants';
 
 const Erc20ReadCallView = () => {
-  const {library} = useWeb3React();
+  const {library, chainId} = useWeb3React();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -18,9 +23,12 @@ const Erc20ReadCallView = () => {
 
   const doReadCall = async () => {
     setLoading(true);
+    setError('');
+    setDecimals('');
 
     try {
-      const StargazerTokenAddress = '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65';
+      const provider = CHAIN_ID_TO_PROVIDER[chainId!];
+      const StargazerTokenAddress = STARGAZER_SAMPLE_TOKEN_ADDRESSES[provider];
 
       const contract = new ethers.Contract(
         StargazerTokenAddress,
@@ -51,11 +59,12 @@ const Erc20ReadCallView = () => {
       inputs={
         <>
           <Textarea
-            label="ERC20 Contract (Stargazer Token)"
-            value="0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65"
+            label="Smart Contract Address (Stargazer Token)"
+            value={STARGAZER_TOKEN_STRING}
             readOnly
+            minRows={5}
             disabled
-          ></Textarea>
+          />
         </>
       }
       outputs={
