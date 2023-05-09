@@ -21,23 +21,13 @@ const EthTransferView = () => {
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doTransfer = async (selectedProvider: STARGAZER_CHAINS) => {
+  const doTransfer = async () => {
     setLoading(true);
 
     try {
-      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
-        await stargazerProviders.connect();
+      const {ethProvider} = await stargazerProviders.connect();
 
-      const PROVIDERS = {
-        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider,
-        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
-      };
-
-      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
-
-      const library = new ethers.providers.Web3Provider(provider, 'any');
+      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
       const valueInWei = ethers.BigNumber.from(value * 1e9).toHexString();
 

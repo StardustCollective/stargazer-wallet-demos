@@ -7,9 +7,15 @@ import {useStargazerProviders} from 'src/utils';
 
 import styles from './index.module.scss';
 import {
+  AVALANCHE_CHAINS,
   AVALANCHE_TESTNET,
+  BSC_CHAINS,
   BSC_TESTNET,
+  CHAINS_MAP,
+  ETHEREUM_CHAINS,
   ETHEREUM_TESTNET,
+  EVM_CHAINS,
+  POLYGON_CHAINS,
   POLYGON_TESTNET,
   STARGAZER_CHAINS
 } from 'src/utils/constants';
@@ -39,15 +45,50 @@ const DemoCard = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [chainId, setChainId] = useState('0x0');
-  const [polygonChainId, setPolygonChainId] = useState('0x0');
-  const [bscChainId, setBscChainId] = useState('0x0');
-  const [avalancheChainId, setAvalancheChainId] = useState('0x0');
-  const [selectedProvider, setSelectedProvider] = useState(STARGAZER_CHAINS.ETHEREUM);
+  const [selectedChain, setSelectedChain] = useState(STARGAZER_CHAINS.ETHEREUM);
   const [dagChainId, setDagChainId] = useState(0);
+
+  const expectedChains = CHAINS_MAP[selectedChain];
 
   const isDAGdemo = title.includes('DAG');
 
   const stargazerProviders = useStargazerProviders();
+
+  const onChainChanged = (chainId: string) => {
+    setChainId(chainId);
+  };
+
+  const onDagChainChanged = (dagChainId: string) => {
+    const dagChainIdNumber = parseInt(dagChainId, 16);
+    setDagChainId(dagChainIdNumber);
+  };
+
+  useEffect(() => {
+    if (stargazerProviders.connected) {
+      if (!stargazerProviders.ethProvider) {
+        return;
+      }
+
+      stargazerProviders.ethProvider.on('chainChanged', onChainChanged);
+
+      if (!stargazerProviders.dagProvider) {
+        return;
+      }
+
+      stargazerProviders.dagProvider.on('chainChanged', onDagChainChanged);
+    }
+
+    return () => {
+      if (stargazerProviders.ethProvider && stargazerProviders.dagProvider) {
+        stargazerProviders.ethProvider.removeListener('chainChanged', onChainChanged);
+        stargazerProviders.dagProvider.removeListener('chainChanged', onDagChainChanged);
+      }
+    };
+  }, [
+    stargazerProviders.connected,
+    stargazerProviders.ethProvider,
+    stargazerProviders.dagProvider
+  ]);
 
   useEffect(() => {
     if (stargazerProviders.connected) {
@@ -64,39 +105,6 @@ const DemoCard = ({
         setChainId(chainId);
       })();
       (async () => {
-        if (!stargazerProviders.polygonProvider) {
-          return;
-        }
-
-        const polygonChainId = await stargazerProviders.polygonProvider.request({
-          method: 'eth_chainId',
-          params: []
-        });
-        setPolygonChainId(polygonChainId);
-      })();
-      (async () => {
-        if (!stargazerProviders.bscProvider) {
-          return;
-        }
-
-        const bscChainId = await stargazerProviders.bscProvider.request({
-          method: 'eth_chainId',
-          params: []
-        });
-        setBscChainId(bscChainId);
-      })();
-      (async () => {
-        if (!stargazerProviders.avalancheProvider) {
-          return;
-        }
-
-        const avalancheChainId = await stargazerProviders.avalancheProvider.request({
-          method: 'eth_chainId',
-          params: []
-        });
-        setAvalancheChainId(avalancheChainId);
-      })();
-      (async () => {
         if (!stargazerProviders.dagProvider) {
           return;
         }
@@ -111,10 +119,8 @@ const DemoCard = ({
   }, [
     stargazerProviders.connected,
     stargazerProviders.ethProvider,
-    stargazerProviders.polygonProvider,
-    stargazerProviders.bscProvider,
-    stargazerProviders.avalancheProvider,
-    stargazerProviders.dagProvider
+    stargazerProviders.dagProvider,
+    selectedChain
   ]);
 
   return (
@@ -141,92 +147,105 @@ const DemoCard = ({
             <Stack>
               <Select
                 label={'Select EVM network'}
-                value={selectedProvider}
+                value={selectedChain}
                 data={[
                   {label: 'Ethereum', value: STARGAZER_CHAINS.ETHEREUM},
                   {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON},
                   {label: 'Binance Smart Chain', value: STARGAZER_CHAINS.BSC},
                   {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE}
                 ]}
-                onChange={(value) => setSelectedProvider(value as STARGAZER_CHAINS)}
+                onChange={(value) => setSelectedChain(value as STARGAZER_CHAINS)}
               />
             </Stack>
           )}
           {walletRequired &&
             !isDAGdemo &&
-            selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
+            selectedChain === STARGAZER_CHAINS.ETHEREUM &&
             chainId !== '0x0' &&
+            ETHEREUM_CHAINS.includes(chainId) &&
             chainId !== ETHEREUM_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Goerli network, your wallet needs to be on the same
-                network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-                Ethereum Network {'>'} and choose Goerli Testnet.
+                network for executing them. On Stargazer {'>'} Network selector {'>'} Goerli
+                Testnet.
               </Alert>
             )}
           {walletRequired &&
             !isDAGdemo &&
-            selectedProvider === STARGAZER_CHAINS.POLYGON &&
-            polygonChainId !== '0x0' &&
-            polygonChainId !== POLYGON_TESTNET && (
+            selectedChain === STARGAZER_CHAINS.POLYGON &&
+            chainId !== '0x0' &&
+            POLYGON_CHAINS.includes(chainId) &&
+            chainId !== POLYGON_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-                All demos were designed on the Maticmum Testnet network, your wallet needs to be on
-                the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
-                {'>'} Polygon Network {'>'} and choose Maticmum Testnet.
+                All demos were designed on the Polygon Testnet network, your wallet needs to be on
+                the same network for executing them. On Stargazer {'>'} Network selector {'>'}{' '}
+                Polygon Testnet.
               </Alert>
             )}
           {walletRequired &&
             !isDAGdemo &&
-            selectedProvider === STARGAZER_CHAINS.BSC &&
-            bscChainId !== '0x0' &&
-            bscChainId !== BSC_TESTNET && (
+            selectedChain === STARGAZER_CHAINS.BSC &&
+            chainId !== '0x0' &&
+            BSC_CHAINS.includes(chainId) &&
+            chainId !== BSC_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the BSC Testnet network, your wallet needs to be on the
-                same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-                BSC Network {'>'} and choose BSC Testnet.
+                same network for executing them. On Stargazer {'>'} Network selector {'>'} BSC
+                Testnet.
               </Alert>
             )}
           {walletRequired &&
             !isDAGdemo &&
-            selectedProvider === STARGAZER_CHAINS.AVALANCHE &&
-            avalancheChainId !== '0x0' &&
-            avalancheChainId !== AVALANCHE_TESTNET && (
+            selectedChain === STARGAZER_CHAINS.AVALANCHE &&
+            chainId !== '0x0' &&
+            AVALANCHE_CHAINS.includes(chainId) &&
+            chainId !== AVALANCHE_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Avalanche Fuji Testnet network, your wallet needs to
-                be on the same network for executing them. On Stargazer {'>'} Settings {'>'}{' '}
-                Networks {'>'} Avalanche Network {'>'} and choose Fuji Testnet.
+                be on the same network for executing them. On Stargazer {'>'} Network selector {'>'}{' '}
+                Fuji Testnet.
+              </Alert>
+            )}
+          {walletRequired &&
+            !isDAGdemo &&
+            chainId !== '0x0' &&
+            EVM_CHAINS.includes(selectedChain) &&
+            !expectedChains.includes(chainId) && (
+              <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+                Please check if the Stargazer Wallet is connected to the current EVM network.
               </Alert>
             )}
           {walletRequired && isDAGdemo && dagChainId !== 0 && dagChainId !== 3 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Testnet 2.0 network, your wallet needs to be on the
-              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-              Constellation Network {'>'} and choose Testnet 2.0.
+              same network for executing them. On Stargazer {'>'} Network selector {'>'} Testnet
+              2.0.
             </Alert>
           )}
           <Button
             disabled={
               (walletRequired &&
                 !isDAGdemo &&
-                selectedProvider === STARGAZER_CHAINS.ETHEREUM &&
+                selectedChain === STARGAZER_CHAINS.ETHEREUM &&
                 chainId !== ETHEREUM_TESTNET) ||
               (walletRequired &&
                 !isDAGdemo &&
-                selectedProvider === STARGAZER_CHAINS.POLYGON &&
-                polygonChainId !== POLYGON_TESTNET) ||
+                selectedChain === STARGAZER_CHAINS.POLYGON &&
+                chainId !== POLYGON_TESTNET) ||
               (walletRequired &&
                 !isDAGdemo &&
-                selectedProvider === STARGAZER_CHAINS.BSC &&
-                bscChainId !== BSC_TESTNET) ||
+                selectedChain === STARGAZER_CHAINS.BSC &&
+                chainId !== BSC_TESTNET) ||
               (walletRequired &&
                 !isDAGdemo &&
-                selectedProvider === STARGAZER_CHAINS.AVALANCHE &&
-                avalancheChainId !== AVALANCHE_TESTNET) ||
+                selectedChain === STARGAZER_CHAINS.AVALANCHE &&
+                chainId !== AVALANCHE_TESTNET) ||
               (walletRequired && isDAGdemo && dagChainId !== 3) ||
               (walletRequired && !stargazerProviders.connected) ||
               isLoading ||
               stargazerProviders.loading
             }
-            onClick={() => onActionButtonClick(selectedProvider)}
+            onClick={() => onActionButtonClick(selectedChain)}
           >
             {actionButtonClickContent}
           </Button>

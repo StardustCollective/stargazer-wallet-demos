@@ -38,23 +38,14 @@ const ContractWriteCallView = () => {
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doWriteCall = async (selectedProvider: STARGAZER_CHAINS) => {
+  const doWriteCall = async (selectedChain: STARGAZER_CHAINS) => {
     setLoading(true);
-    const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
-      await stargazerProviders.connect();
-
-    const PROVIDERS = {
-      [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-      [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-      [STARGAZER_CHAINS.BSC]: bscProvider,
-      [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
-    };
+    const {ethProvider} = await stargazerProviders.connect();
 
     try {
-      const StargazerGreeterAddress: string = STARGAZER_GREETER_ADDRESSES[selectedProvider];
-      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+      const StargazerGreeterAddress: string = STARGAZER_GREETER_ADDRESSES[selectedChain];
 
-      const library = new ethers.providers.Web3Provider(provider, 'any');
+      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
       const signer = library.getSigner(sender);
 

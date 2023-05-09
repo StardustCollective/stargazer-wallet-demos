@@ -3,21 +3,9 @@ import * as ethers from 'ethers';
 import {activateStargazerProviders} from 'src/utils';
 import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
-const {
-  ethProvider, 
-  polygonProvider, 
-  bscProvider, 
-  avalancheProvider
-} = await activateStargazerProviders();
+const {ethProvider} = await activateStargazerProviders();
 
 const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
-
-const PROVIDERS = {
-  ethereum: ethProvider,
-  polygon: polygonProvider,
-  bsc: bscProvider,
-  avalanche: avalancheProvider
-};
 
 const STARGAZER_SAMPLE_TOKEN_ADDRESSES = {
   ethereum: '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65',
@@ -26,9 +14,7 @@ const STARGAZER_SAMPLE_TOKEN_ADDRESSES = {
   avalanche: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2'
 }
 
-const selectedProvider = PROVIDERS[selectedNetwork];
-
-const library = new ethers.providers.Web3Provider(selectedProvider, 'any');
+const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
 const StargazerTokenAddress = STARGAZER_SAMPLE_TOKEN_ADDRESSES[selectedNetwork];
 

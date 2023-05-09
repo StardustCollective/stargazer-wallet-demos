@@ -76,6 +76,9 @@ const DagTransferView = () => {
       }
     } catch (e) {
       setError(String(e));
+      setLoading(false);
+      setHash('');
+      setTrxStatus('');
       console.error(e);
     }
   };
