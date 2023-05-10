@@ -26,7 +26,7 @@ if (connector instanceof StargazerConnector) {
   const domain = {
     name: 'Stargazer Demo',
     version: '1.0.0',
-    chainId: 5,
+    chainId,
     verifyingContract: '0xabcdefABCDEF1234567890abcdefABCDEF123456'
   };
 
@@ -57,20 +57,7 @@ if (connector instanceof StargazerConnector) {
   // We are using ethers to build a EIP-712 payload from our domain, types and value.
   const messagePayload = ethers.utils._TypedDataEncoder.getPayload(domain, types, value);
 
-  const CHAIN_ID_TO_PROVIDER = {
-    1: connector.ethProvider,
-    5: connector.ethProvider,
-    137: connector.polygonProvider,
-    80001: connector.polygonProvider,
-    56: connector.bscProvider,
-    97: connector.bscProvider,
-    43114: connector.avalancheProvider,
-    43113: connector.avalancheProvider
-  };
-
-  const provider = CHAIN_ID_TO_PROVIDER[chainId!];
-
-  const signature = await provider.request({
+  const signature = await connector.ethProvider.request({
     method: 'eth_signTypedData',
     params: [account, messagePayload]
   });

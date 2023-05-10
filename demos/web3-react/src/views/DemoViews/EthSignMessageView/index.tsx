@@ -8,7 +8,7 @@ import {useWeb3React} from 'src/utils';
 import demoCodeText from './demoCode.text.ts';
 
 const EthSignMessageView = () => {
-  const {account, connector, chainId} = useWeb3React();
+  const {account, connector} = useWeb3React();
 
   const [value, setValue] = useState(
     "Sign this message to confirm your participation in this month's program."
@@ -24,29 +24,16 @@ const EthSignMessageView = () => {
 
     try {
       if (connector instanceof StargazerConnector) {
-        const CHAIN_ID_TO_PROVIDER = {
-          1: connector.ethProvider,
-          5: connector.ethProvider,
-          137: connector.polygonProvider,
-          80001: connector.polygonProvider,
-          56: connector.bscProvider,
-          97: connector.bscProvider,
-          43114: connector.avalancheProvider,
-          43113: connector.avalancheProvider
-        };
-        const provider = CHAIN_ID_TO_PROVIDER[chainId!];
         // Build your message
         const message = "Sign this message to confirm your participation in this month's program.";
 
-        if (provider) {
-          const signature = await provider.request({
-            method: 'personal_sign',
-            params: [account, message]
-          });
+        const signature = await connector.ethProvider.request({
+          method: 'personal_sign',
+          params: [account, message]
+        });
 
-          setSignature(signature);
-          setError('');
-        }
+        setSignature(signature);
+        setError('');
       }
     } catch (e) {
       setError(String(e));

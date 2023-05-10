@@ -14,15 +14,7 @@ const stargazerConnector = new StargazerConnector({
   ]
 });
 
-const {activate, connector} = useWeb3React();
+const {activate} = useWeb3React();
 
 await activate(stargazerConnector);
-
-// Switch EVM provider
-
-const newProvider = 'polygon'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
-
-if (connector instanceof StargazerConnector) {
-  await connector.switchEVMProvider(newProvider);
-}
 
