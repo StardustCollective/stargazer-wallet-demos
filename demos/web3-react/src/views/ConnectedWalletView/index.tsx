@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {
   Alert,
   Title,
@@ -19,7 +19,12 @@ import useDagChainId from 'src/utils/useDagChainId';
 import {stargazerConnector} from 'src/common/consts';
 
 import styles from './index.module.scss';
-import {CHAINS_MAP, EVM_CHAINS, STARGAZER_CHAINS} from 'src/common/consts/constants';
+import {
+  CHAINS_MAP,
+  EVM_CHAINS,
+  HEX_CHAINS_MAP,
+  STARGAZER_CHAINS
+} from 'src/common/consts/constants';
 import {NetworkContext} from 'src/App';
 
 const CHAIN_NAMES = {
@@ -68,6 +73,14 @@ const ConnectedWalletView = () => {
 
   const switchChain = async (value: string) => {
     setSelectedChain(value as STARGAZER_CHAINS);
+
+    if (connector instanceof StargazerConnector) {
+      const hexChainId = HEX_CHAINS_MAP[value];
+      await connector.ethProvider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{chainId: hexChainId}]
+      });
+    }
   };
 
   const expectedChains = CHAINS_MAP[selectedChain];
@@ -132,7 +145,8 @@ const ConnectedWalletView = () => {
           chainId !== 5 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Goerli network, your wallet needs to be on the same
-              network for executing them. On Stargazer {'>'} Network selector {'>'} Goerli Testnet.
+              network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} Ethereum{' '}
+              {'>'} Goerli Testnet.
             </Alert>
           )}
         {account &&
@@ -142,8 +156,8 @@ const ConnectedWalletView = () => {
           chainId !== 80001 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Polygon Testnet network, your wallet needs to be on the
-              same network for executing them. On Stargazer {'>'} Network selector {'>'} Polygon
-              Testnet.
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+              Polygon {'>'} Polygon Testnet.
             </Alert>
           )}
         {account &&
@@ -153,8 +167,8 @@ const ConnectedWalletView = () => {
           chainId !== 97 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the BSC Testnet network, your wallet needs to be on the
-              same network for executing them. On Stargazer {'>'} Network selector {'>'} BSC
-              Testnet.
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'} BNB{' '}
+              Chain {'>'} BSC Testnet.
             </Alert>
           )}
         {account &&
@@ -164,8 +178,8 @@ const ConnectedWalletView = () => {
           chainId !== 43113 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Avalanche Fuji network, your wallet needs to be on the
-              same network for executing them. On Stargazer {'>'} Network selector {'>'} Fuji
-              Testnet.
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+              Avalanche {'>'} Fuji Testnet.
             </Alert>
           )}
         {account &&
@@ -173,7 +187,8 @@ const ConnectedWalletView = () => {
           typeof chainId === 'number' &&
           !expectedChains.includes(chainId) && (
             <Alert icon={<AlertCircle size={16} />} title="Wrong Network" color="yellow">
-              Please check if the Stargazer Wallet is connected to the current EVM network.
+              The Stargazer Wallet is connected to &quot;{CHAIN_NAMES[chainId]}&quot; but the
+              selected EVM network is different.
             </Alert>
           )}
         {account && dagChainId && (
@@ -186,7 +201,8 @@ const ConnectedWalletView = () => {
         {account && typeof dagChainId === 'number' && dagChainId !== 3 && (
           <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
             All demos were designed on the Testnet 2.0 network, your wallet needs to be on the same
-            network for executing them. On Stargazer {'>'} Network selector {'>'} Testnet 2.0.
+            network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+            Constellation {'>'} Testnet 2.0.
           </Alert>
         )}
         {account && (

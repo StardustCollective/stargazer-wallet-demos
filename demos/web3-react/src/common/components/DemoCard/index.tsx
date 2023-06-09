@@ -10,6 +10,17 @@ import styles from './index.module.scss';
 import {CHAINS_MAP, EVM_CHAINS, STARGAZER_CHAINS} from 'src/common/consts/constants';
 import {NetworkContext} from 'src/App';
 
+const CHAIN_NAMES = {
+  1: 'Ethereum Mainnet',
+  5: 'Ethereum Goerli Testnet',
+  137: 'Polygon Mainnet',
+  80001: 'Polygon Testnet',
+  56: 'BSC Mainnet',
+  97: 'BSC Testnet',
+  43114: 'Avalanche C-Chain',
+  43113: 'Avalanche Fuji Testnet'
+};
+
 const DemoCard = ({
   title,
   codeExample,
@@ -67,8 +78,8 @@ const DemoCard = ({
             chainId !== 5 && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Goerli network, your wallet needs to be on the same
-                network for executing them. On Stargazer {'>'} Network selector {'>'} Goerli
-                Testnet.
+                network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+                Ethereum {'>'} Goerli Testnet.
               </Alert>
             )}
           {walletRequired &&
@@ -79,8 +90,8 @@ const DemoCard = ({
             chainId !== 80001 && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Polygon Testnet network, your wallet needs to be on
-                the same network for executing them. On Stargazer {'>'} Network selector {'>'}{' '}
-                Polygon Testnet.
+                the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+                {'>'} Polygon {'>'} Polygon Testnet.
               </Alert>
             )}
           {walletRequired &&
@@ -91,8 +102,8 @@ const DemoCard = ({
             chainId !== 97 && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the BSC Testnet network, your wallet needs to be on the
-                same network for executing them. On Stargazer {'>'} Network selector {'>'} BSC
-                Testnet.
+                same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+                BNB Chain {'>'} BSC Testnet.
               </Alert>
             )}
           {walletRequired &&
@@ -103,8 +114,8 @@ const DemoCard = ({
             chainId !== 43113 && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
                 All demos were designed on the Avalanche Fuji network, your wallet needs to be on
-                the same network for executing them. On Stargazer {'>'} Network selector {'>'} Fuji
-                Testnet.
+                the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+                {'>'} Avalanche {'>'} Fuji Testnet.
               </Alert>
             )}
           {walletRequired &&
@@ -113,14 +124,15 @@ const DemoCard = ({
             typeof chainId === 'number' &&
             !expectedChains.includes(chainId) && (
               <Alert icon={<AlertCircle size={16} />} title="Wrong Network" color="yellow">
-                Please check if the Stargazer Wallet is connected to the current EVM network.
+                The Stargazer Wallet is connected to &quot;{CHAIN_NAMES[chainId]}&quot; but the
+                selected EVM network is different.
               </Alert>
             )}
           {walletRequired && isDAGdemo && typeof dagChainId === 'number' && dagChainId !== 3 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
               All demos were designed on the Testnet 2.0 network, your wallet needs to be on the
-              same network for executing them. On Stargazer {'>'} Network selector {'>'} Testnet
-              2.0.
+              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+              Constellation {'>'} Testnet 2.0.
             </Alert>
           )}
           {walletRequired && !account && (
