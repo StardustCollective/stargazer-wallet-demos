@@ -12,6 +12,7 @@ import {
   STARGAZER_GREETER_ADDRESSES,
   STARGAZER_GREETER_STRING
 } from 'src/utils/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const greetings = [
   {value: '0', label: '(0) Good Morning!'},
@@ -38,23 +39,14 @@ const ContractWriteCallView = () => {
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doWriteCall = async (selectedProvider: STARGAZER_CHAINS) => {
+  const doWriteCall = async (selectedChain: STARGAZER_CHAINS) => {
     setLoading(true);
-    const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
-      await stargazerProviders.connect();
-
-    const PROVIDERS = {
-      [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-      [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-      [STARGAZER_CHAINS.BSC]: bscProvider,
-      [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
-    };
+    const {ethProvider} = await stargazerProviders.connect();
 
     try {
-      const StargazerGreeterAddress: string = STARGAZER_GREETER_ADDRESSES[selectedProvider];
-      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+      const StargazerGreeterAddress: string = STARGAZER_GREETER_ADDRESSES[selectedChain];
 
-      const library = new ethers.providers.Web3Provider(provider, 'any');
+      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
       const signer = library.getSigner(sender);
 
@@ -108,6 +100,11 @@ const ContractWriteCallView = () => {
               defaultValue={stargazerProviders.ethAccounts[0]}
               onChange={(value) => setSender(value ?? stargazerProviders.ethAccounts[0])}
               data={stargazerProviders.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Select
@@ -116,6 +113,11 @@ const ContractWriteCallView = () => {
             defaultValue={greetings[0].value}
             onChange={(value) => setGreetingId(value ?? greetings[0].value)}
             data={greetings}
+            styles={() => ({
+              selected: {
+                color: BaseColor.SOFT_IRIS
+              }
+            })}
           ></Select>
         </>
       }

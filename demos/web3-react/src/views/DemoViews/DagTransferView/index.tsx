@@ -6,6 +6,7 @@ import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
 
 import demoCodeText from './demoCode.text.ts';
+import {BaseColor} from 'src/common/consts/colors';
 
 const DagTransferView = () => {
   const {connector} = useWeb3React();
@@ -104,6 +105,11 @@ const DagTransferView = () => {
               defaultValue={connector.dagAccounts[0]}
               onChange={(value) => setSender(value ?? connector.dagAccounts[0])}
               data={connector.dagAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

@@ -2506,10 +2506,10 @@
   dependencies:
     antlr4ts "^0.5.0-alpha.4"
 
-"@stardust-collective/web3-react-stargazer-connector@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@stardust-collective/web3-react-stargazer-connector/-/web3-react-stargazer-connector-1.1.0.tgz#8fc7d6aabc83a57989bf91affb8ed5a561871685"
-  integrity sha512-8VM+MGsDvGYisbfxZ8rx9rO1bX+PzICfJGYeXv2wiDs9NRwMl9iQni/y5JZTqp3p/RYbNX3iRJOFVCBI5omrnQ==
+"@stardust-collective/web3-react-stargazer-connector@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@stardust-collective/web3-react-stargazer-connector/-/web3-react-stargazer-connector-1.0.2.tgz#75b5f06cedde1dc6e2061ef06802dea4929c112c"
+  integrity sha512-eEpoMKKBKlJxmsziuuA5Cbr8ATMKrDyKu2ORj8lQHFohoswi7AF8VMpSpTEoZORoDL5UKZSU+nHEWJWeulOeAQ==
   dependencies:
     "@web3-react/abstract-connector" "^6.0.7"
     debug "^4.3.4"
