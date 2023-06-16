@@ -119,6 +119,7 @@ const DemoCard = ({
         setDagChainId(dagChainId);
       })();
     }
+    // eslint-disable-next-line
   }, [
     stargazerProviders.connected,
     stargazerProviders.ethProvider,
