@@ -13,6 +13,7 @@ import {
   STARGAZER_SAMPLE_TOKEN_ADDRESSES,
   STARGAZER_TOKEN_STRING
 } from 'src/utils/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const Erc20WriteCallView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -91,6 +92,11 @@ const Erc20WriteCallView = () => {
               defaultValue={stargazerProviders.ethAccounts[0]}
               onChange={(value) => setSender(value ?? stargazerProviders.ethAccounts[0])}
               data={stargazerProviders.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

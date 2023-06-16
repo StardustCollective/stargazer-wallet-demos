@@ -7,6 +7,7 @@ import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
 
 import demoCodeText from './demoCode.text.ts';
+import {BaseColor} from 'src/common/consts/colors';
 
 const EthTransferView = () => {
   const {library, connector} = useWeb3React();
@@ -73,6 +74,11 @@ const EthTransferView = () => {
               defaultValue={connector.ethAccounts[0]}
               onChange={(value) => setSender(value ?? connector.ethAccounts[0])}
               data={connector.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

@@ -13,6 +13,7 @@ import {
   STARGAZER_SAMPLE_TOKEN_ADDRESSES,
   STARGAZER_TOKEN_STRING
 } from 'src/common/consts/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const Erc20WriteCallView = () => {
   const {library, connector, chainId} = useWeb3React();
@@ -95,6 +96,11 @@ const Erc20WriteCallView = () => {
               defaultValue={connector.ethAccounts[0]}
               onChange={(value) => setSender(value ?? connector.ethAccounts[0])}
               data={connector.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

@@ -9,6 +9,7 @@ import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
 import {STARGAZER_CHAINS, STARGAZER_SAMPLE_TOKEN_ADDRESSES} from 'src/utils/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const Erc20TransferView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -79,6 +80,11 @@ const Erc20TransferView = () => {
               defaultValue={stargazerProviders.ethAccounts[0]}
               onChange={(value) => setSender(value ?? stargazerProviders.ethAccounts[0])}
               data={stargazerProviders.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

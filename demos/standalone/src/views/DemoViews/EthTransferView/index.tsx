@@ -6,7 +6,7 @@ import {useStargazerProviders} from 'src/utils';
 import {DemoCard} from 'src/common/components';
 
 import demoCodeText from './demoCode.text.ts';
-import {STARGAZER_CHAINS} from 'src/utils/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const EthTransferView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -70,6 +70,11 @@ const EthTransferView = () => {
               defaultValue={stargazerProviders.ethAccounts[0]}
               onChange={(value) => setSender(value ?? stargazerProviders.ethAccounts[0])}
               data={stargazerProviders.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

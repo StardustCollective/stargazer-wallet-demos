@@ -5,6 +5,7 @@ import {DemoCard} from 'src/common/components';
 import {useStargazerProviders} from 'src/utils';
 
 import demoCodeText from './demoCode.text.ts';
+import {BaseColor} from 'src/common/consts/colors';
 
 const DagTransferView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -103,6 +104,11 @@ const DagTransferView = () => {
               defaultValue={stargazerProviders.dagAccounts[0]}
               onChange={(value) => setSender(value ?? stargazerProviders.dagAccounts[0])}
               data={stargazerProviders.dagAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

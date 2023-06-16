@@ -16,7 +16,7 @@ import {AlertCircle} from 'tabler-icons-react';
 import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
 import {useWeb3React} from 'src/utils/web3-react';
 import useDagChainId from 'src/utils/useDagChainId';
-import {stargazerConnector} from 'src/common/consts';
+import {BaseColor, stargazerConnector} from 'src/common/consts';
 
 import styles from './index.module.scss';
 import {
@@ -114,7 +114,7 @@ const ConnectedWalletView = () => {
                 ))}
               </Stack>
             </Accordion.Item>
-            <Accordion.Item label="ETH Accounts">
+            <Accordion.Item label="EVM Accounts">
               <Stack>
                 {connector.ethAccounts.map((account) => (
                   <Kbd key={account}>{account}</Kbd>
@@ -217,6 +217,11 @@ const ConnectedWalletView = () => {
                 {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE}
               ]}
               onChange={switchChain}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             />
           </Stack>
         )}

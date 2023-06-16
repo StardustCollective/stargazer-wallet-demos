@@ -21,6 +21,7 @@ import {
   POLYGON_TESTNET,
   STARGAZER_CHAINS
 } from 'src/utils/constants';
+import {BaseColor} from 'src/common/consts';
 
 const DemoCard = ({
   title,
@@ -168,6 +169,11 @@ const DemoCard = ({
                   {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE}
                 ]}
                 onChange={switchChain}
+                styles={() => ({
+                  selected: {
+                    color: BaseColor.SOFT_IRIS
+                  }
+                })}
               />
             </Stack>
           )}
