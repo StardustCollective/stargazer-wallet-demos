@@ -78,20 +78,7 @@ const EthSignMessageView = () => {
 
         const hash = ethers.utils._TypedDataEncoder.hash(domain, typesParsed, valueParsed);
 
-        const CHAIN_ID_TO_PROVIDER = {
-          1: connector.ethProvider,
-          5: connector.ethProvider,
-          137: connector.polygonProvider,
-          80001: connector.polygonProvider,
-          56: connector.bscProvider,
-          97: connector.bscProvider,
-          43114: connector.avalancheProvider,
-          43113: connector.avalancheProvider
-        };
-
-        const provider = CHAIN_ID_TO_PROVIDER[chainId!];
-
-        const signature = await provider.request({
+        const signature = await connector.ethProvider.request({
           method: 'eth_signTypedData',
           params: [account, messagePayload]
         });

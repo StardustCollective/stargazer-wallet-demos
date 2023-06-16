@@ -15,7 +15,8 @@
     "ws:standalone": "yarn workspace standalone",
     "start-web3react": "yarn ws:web3react start",
     "start-standalone": "yarn ws:standalone start",
-    "build": "yarn ws:web3react build && yarn ws:standalone build"
+    "build": "yarn ws:web3react build && yarn ws:standalone build",
+    "clean": "rm -rf ./node_modules && cd demos/web3-react && rm -rf ./node_modules && cd .. && cd standalone && rm -rf ./node_modules"
   },
   "workspaces": [
     "samples/sample-eth-contracts",

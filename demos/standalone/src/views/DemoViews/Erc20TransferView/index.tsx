@@ -9,6 +9,7 @@ import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
 import {STARGAZER_CHAINS, STARGAZER_SAMPLE_TOKEN_ADDRESSES} from 'src/utils/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const Erc20TransferView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -22,24 +23,15 @@ const Erc20TransferView = () => {
   const [trxStatus, setTrxStatus] = useState('');
   const [hash, setHash] = useState('');
 
-  const doTransfer = async (selectedProvider: STARGAZER_CHAINS) => {
+  const doTransfer = async (selectedChain: STARGAZER_CHAINS) => {
     setLoading(true);
 
     try {
-      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
-        await stargazerProviders.connect();
+      const {ethProvider} = await stargazerProviders.connect();
 
-      const PROVIDERS = {
-        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider,
-        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
-      };
+      const StargazerTokenAddress: string = STARGAZER_SAMPLE_TOKEN_ADDRESSES[selectedChain];
 
-      const StargazerTokenAddress: string = STARGAZER_SAMPLE_TOKEN_ADDRESSES[selectedProvider];
-      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
-
-      const library = new ethers.providers.Web3Provider(provider, 'any');
+      const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
       const signer = library.getSigner(sender);
 
@@ -88,6 +80,11 @@ const Erc20TransferView = () => {
               defaultValue={stargazerProviders.ethAccounts[0]}
               onChange={(value) => setSender(value ?? stargazerProviders.ethAccounts[0])}
               data={stargazerProviders.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

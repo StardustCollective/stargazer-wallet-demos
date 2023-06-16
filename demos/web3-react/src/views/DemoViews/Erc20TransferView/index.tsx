@@ -9,6 +9,7 @@ import {ERC20ABI, ERC20} from 'src/utils/interfaces/ERC20';
 
 import demoCodeText from './demoCode.text.ts';
 import {CHAIN_ID_TO_PROVIDER, STARGAZER_SAMPLE_TOKEN_ADDRESSES} from 'src/common/consts/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const Erc20TransferView = () => {
   const {connector, library, chainId} = useWeb3React();
@@ -84,6 +85,11 @@ const Erc20TransferView = () => {
               defaultValue={connector.ethAccounts[0]}
               onChange={(value) => setSender(value ?? connector.ethAccounts[0])}
               data={connector.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Textarea

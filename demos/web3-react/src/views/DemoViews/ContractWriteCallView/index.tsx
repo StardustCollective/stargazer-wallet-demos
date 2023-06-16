@@ -13,6 +13,7 @@ import {
   STARGAZER_GREETER_ADDRESSES,
   STARGAZER_GREETER_STRING
 } from 'src/common/consts/constants';
+import {BaseColor} from 'src/common/consts/colors';
 
 const greetings = [
   {value: '0', label: '(0) Good Morning!'},
@@ -104,6 +105,11 @@ const ContractWriteCallView = () => {
               defaultValue={connector.ethAccounts[0]}
               onChange={(value) => setSender(value ?? connector.ethAccounts[0])}
               data={connector.ethAccounts}
+              styles={() => ({
+                selected: {
+                  color: BaseColor.SOFT_IRIS
+                }
+              })}
             ></Select>
           )}
           <Select
@@ -112,6 +118,11 @@ const ContractWriteCallView = () => {
             defaultValue={greetings[0].value}
             onChange={(value) => setGreetingId(value ?? greetings[0].value)}
             data={greetings}
+            styles={() => ({
+              selected: {
+                color: BaseColor.SOFT_IRIS
+              }
+            })}
           ></Select>
         </>
       }

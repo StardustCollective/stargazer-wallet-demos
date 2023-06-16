@@ -5,7 +5,6 @@ import {useStargazerProviders} from 'src/utils';
 import {DemoCard} from 'src/common/components';
 
 import demoCodeText from './demoCode.text.ts';
-import {STARGAZER_CHAINS} from 'src/utils/constants';
 
 const EthSignMessageView = () => {
   const stargazerProviders = useStargazerProviders();
@@ -17,27 +16,17 @@ const EthSignMessageView = () => {
   const [error, setError] = useState('');
   const [signature, setSignature] = useState('');
 
-  const doSignMessage = async (selectedProvider: STARGAZER_CHAINS) => {
+  const doSignMessage = async () => {
     setLoading(true);
     try {
-      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
-        await stargazerProviders.connect();
+      const {ethProvider} = await stargazerProviders.connect();
 
-      const PROVIDERS = {
-        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider,
-        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
-      };
-
-      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
-
-      const accounts = await provider.request({method: 'eth_accounts', params: []});
+      const accounts = await ethProvider.request({method: 'eth_accounts', params: []});
 
       // Build your message
       const message = "Sign this message to confirm your participation in this month's program.";
 
-      const signature = await provider.request({
+      const signature = await ethProvider.request({
         method: 'personal_sign',
         params: [accounts[0], message]
       });

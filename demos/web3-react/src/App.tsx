@@ -1,3 +1,4 @@
+import {useState, createContext} from 'react';
 import {MantineProvider, Container, Grid, ScrollArea, Stack} from '@mantine/core';
 import {Web3ReactProvider} from '@web3-react/core';
 import cls from 'classnames';
@@ -10,8 +11,16 @@ import {ConnectedWalletView} from 'src/views/ConnectedWalletView';
 import {DemoViews} from 'src/views/DemoViews';
 
 import styles from './App.module.scss';
+import {STARGAZER_CHAINS} from './common/consts/constants';
+
+export const NetworkContext = createContext({
+  selectedChain: STARGAZER_CHAINS.ETHEREUM,
+  setSelectedChain: (value: string) => null
+});
 
 function App() {
+  const [selectedChain, setSelectedChain] = useState(STARGAZER_CHAINS.ETHEREUM);
+  const initialValue = {selectedChain, setSelectedChain};
   return (
     <Web3ReactProvider getLibrary={getWeb3Library}>
       <ScrollArea className={styles.mainWrapper}>
@@ -24,18 +33,20 @@ function App() {
             primaryColor: 'paua'
           }}
         >
-          <Container fluid className={cls(styles.container)}>
-            <Grid columns={7} className={styles.contained}>
-              <Grid.Col span={2}>
-                <ConnectedWalletView />
-              </Grid.Col>
-              <Grid.Col span={5}>
-                <Stack spacing="md">
-                  <DemoViews />
-                </Stack>
-              </Grid.Col>
-            </Grid>
-          </Container>
+          <NetworkContext.Provider value={initialValue as any}>
+            <Container fluid className={cls(styles.container)}>
+              <Grid columns={7} className={styles.contained}>
+                <Grid.Col span={2}>
+                  <ConnectedWalletView />
+                </Grid.Col>
+                <Grid.Col span={5}>
+                  <Stack spacing="md">
+                    <DemoViews />
+                  </Stack>
+                </Grid.Col>
+              </Grid>
+            </Container>
+          </NetworkContext.Provider>
         </MantineProvider>
       </ScrollArea>
     </Web3ReactProvider>

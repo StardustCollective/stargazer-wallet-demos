@@ -49,31 +49,21 @@ const EthSignMessageView = () => {
   const [hash, setHash] = useState('');
   const [signature, setSignature] = useState('');
 
-  const doSignTypedData = async (selectedProvider: STARGAZER_CHAINS) => {
+  const doSignTypedData = async (selectedChain: STARGAZER_CHAINS) => {
     setLoading(true);
     try {
-      const {ethProvider, polygonProvider, bscProvider, avalancheProvider} =
-        await stargazerProviders.connect();
-
-      const PROVIDERS = {
-        [STARGAZER_CHAINS.ETHEREUM]: ethProvider,
-        [STARGAZER_CHAINS.POLYGON]: polygonProvider,
-        [STARGAZER_CHAINS.BSC]: bscProvider,
-        [STARGAZER_CHAINS.AVALANCHE]: avalancheProvider
-      };
+      const {ethProvider} = await stargazerProviders.connect();
 
       const TEST_CHAIN_IDS = {
         ethereum: 5, // Goerli
-        polygon: 80001, // Maticmum
+        polygon: 80001, // Polygon testnet
         bsc: 97, // BSC testnet
         avalanche: 43113 // Fuji testnet
       };
 
-      const provider: StargazerEIPProvider = PROVIDERS[selectedProvider];
+      const accounts = await ethProvider.request({method: 'eth_accounts', params: []});
 
-      const accounts = await provider.request({method: 'eth_accounts', params: []});
-
-      const chainId = TEST_CHAIN_IDS[selectedProvider];
+      const chainId = TEST_CHAIN_IDS[selectedChain];
 
       // Build your EIP-712 domain
       const domain = {
@@ -96,7 +86,7 @@ const EthSignMessageView = () => {
 
       const hash = ethers.utils._TypedDataEncoder.hash(domain, typesParsed, valueParsed);
 
-      const signature = await provider.request({
+      const signature = await ethProvider.request({
         method: 'eth_signTypedData',
         params: [accounts[0], messagePayload]
       });

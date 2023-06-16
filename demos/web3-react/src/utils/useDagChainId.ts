@@ -21,8 +21,9 @@ const useDagChainId = () => {
       }
     };
 
-    const updateChainId = (dagChainId: number) => {
-      setChainId(dagChainId);
+    const updateChainId = (dagChainId: string) => {
+      const numberChainId = parseInt(dagChainId);
+      setChainId(numberChainId);
     };
 
     if (connector instanceof StargazerConnector) {
