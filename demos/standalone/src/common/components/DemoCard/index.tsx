@@ -119,7 +119,7 @@ const DemoCard = ({
         setDagChainId(dagChainId);
       })();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [
     stargazerProviders.connected,
     stargazerProviders.ethProvider,

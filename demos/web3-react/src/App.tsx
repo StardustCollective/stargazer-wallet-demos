@@ -15,7 +15,8 @@ import {STARGAZER_CHAINS} from './common/consts/constants';
 
 export const NetworkContext = createContext({
   selectedChain: STARGAZER_CHAINS.ETHEREUM,
-  setSelectedChain: (value: string) => null
+  // eslint-disable-next-line
+  setSelectedChain: (_: string) => null
 });
 
 function App() {
