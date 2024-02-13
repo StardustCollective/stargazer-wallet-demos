@@ -1,5 +1,5 @@
 import {useWeb3React} from '@web3-react/core';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 type JSONScalarValue = null | string | number | boolean;
 
@@ -8,16 +8,16 @@ type StargazerDagSignatureRequest = {
   metadata: Record<string, JSONScalarValue>;
 };
 
-const stargazerConnector = new StargazerConnector({
+const stargazerConnector = new StargazerWeb3ReactConnector({
   supportedChainIds: [
-    1,      // Ethereum Mainnet
-    5,      // Ethereum Goerli Testnet
-    137,    // Polygon Mainnet
-    80001,  // Polygon Testnet
-    56,     // BSC Mainnet
-    97,     // BSC Testnet
-    43114,  // Avalanche C-Chain
-    43113   // Avalanche Fuji Testnet
+    1, // Ethereum Mainnet
+    5, // Ethereum Goerli Testnet
+    137, // Polygon Mainnet
+    80001, // Polygon Testnet
+    56, // BSC Mainnet
+    97, // BSC Testnet
+    43114, // Avalanche C-Chain
+    43113 // Avalanche Fuji Testnet
   ]
 });
 
@@ -27,7 +27,7 @@ const {connector} = useWeb3React();
 console.log(Object.is(stargazerConnector, connector));
 // true
 
-if (connector instanceof StargazerConnector) {
+if (connector instanceof StargazerWeb3ReactConnector) {
   // Build the signature request
   const signatureRequest: StargazerDagSignatureRequest = {
     content: 'Sign this message to confirm your participation in this project.',

@@ -1,12 +1,12 @@
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 declare global {
   interface Window {
-    stargazerConnector: StargazerConnector;
+    stargazerConnector: StargazerWeb3ReactConnector;
   }
 }
 
-const stargazerConnector = new StargazerConnector({});
+const stargazerConnector = new StargazerWeb3ReactConnector({});
 
 window.stargazerConnector = stargazerConnector;
 
