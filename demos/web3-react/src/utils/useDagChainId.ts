@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 import {useWeb3React} from './web3-react';
 
 const useDagChainId = () => {
@@ -12,7 +12,7 @@ const useDagChainId = () => {
     }
 
     const getChainId = async () => {
-      if (connector instanceof StargazerConnector) {
+      if (connector instanceof StargazerWeb3ReactConnector) {
         const initialChain = await connector.dagProvider.request({
           method: 'dag_chainId',
           params: []
@@ -26,12 +26,12 @@ const useDagChainId = () => {
       setChainId(numberChainId);
     };
 
-    if (connector instanceof StargazerConnector) {
+    if (connector instanceof StargazerWeb3ReactConnector) {
       getChainId();
       connector.dagProvider.on('chainChanged', updateChainId);
     }
     return () => {
-      if (connector instanceof StargazerConnector) {
+      if (connector instanceof StargazerWeb3ReactConnector) {
         connector.dagProvider.removeListener('chainChanged', updateChainId);
       }
     };

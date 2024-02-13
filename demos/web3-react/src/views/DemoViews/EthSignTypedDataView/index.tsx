@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {JsonInput, Textarea} from '@mantine/core';
 import * as ethers from 'ethers';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
@@ -56,7 +56,7 @@ const EthSignMessageView = () => {
     setSignature('');
 
     try {
-      if (connector instanceof StargazerConnector) {
+      if (connector instanceof StargazerWeb3ReactConnector) {
         // Build your EIP-712 domain
         const domain = {
           ...STRICT_DOMAIN,

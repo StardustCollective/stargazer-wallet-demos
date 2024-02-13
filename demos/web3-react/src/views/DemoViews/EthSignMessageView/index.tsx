@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Textarea} from '@mantine/core';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
@@ -23,7 +23,7 @@ const EthSignMessageView = () => {
     setSignature('');
 
     try {
-      if (connector instanceof StargazerConnector) {
+      if (connector instanceof StargazerWeb3ReactConnector) {
         // Build your message
         const message = "Sign this message to confirm your participation in this month's program.";
 
