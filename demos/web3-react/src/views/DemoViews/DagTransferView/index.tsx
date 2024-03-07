@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Textarea, NumberInput, Select} from '@mantine/core';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
@@ -28,7 +28,7 @@ const DagTransferView = () => {
     setTrxStatus('');
 
     try {
-      if (connector instanceof StargazerConnector) {
+      if (connector instanceof StargazerWeb3ReactConnector) {
         const txData = {
           source: sender,
           destination: receiver,
@@ -97,7 +97,7 @@ const DagTransferView = () => {
       error={error}
       inputs={
         <>
-          {connector instanceof StargazerConnector && (
+          {connector instanceof StargazerWeb3ReactConnector && (
             <Select
               label="Sender"
               placeholder="DAG..."

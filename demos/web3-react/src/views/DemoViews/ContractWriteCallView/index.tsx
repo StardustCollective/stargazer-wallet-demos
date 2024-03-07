@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Textarea, Select} from '@mantine/core';
 import * as ethers from 'ethers';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
@@ -97,7 +97,7 @@ const ContractWriteCallView = () => {
             minRows={5}
             disabled
           />
-          {connector instanceof StargazerConnector && (
+          {connector instanceof StargazerWeb3ReactConnector && (
             <Select
               label="Sender"
               placeholder="0x..."

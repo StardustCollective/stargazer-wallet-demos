@@ -13,7 +13,7 @@ import {
   Select
 } from '@mantine/core';
 import {AlertCircle} from 'tabler-icons-react';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 import {useWeb3React} from 'src/utils/web3-react';
 import useDagChainId from 'src/utils/useDagChainId';
 import {BaseColor, stargazerConnector} from 'src/common/consts';
@@ -74,7 +74,7 @@ const ConnectedWalletView = () => {
   const switchChain = async (value: string) => {
     setSelectedChain(value as STARGAZER_CHAINS);
 
-    if (connector instanceof StargazerConnector) {
+    if (connector instanceof StargazerWeb3ReactConnector) {
       const hexChainId = HEX_CHAINS_MAP[value];
       await connector.ethProvider.request({
         method: 'wallet_switchEthereumChain',
@@ -105,7 +105,7 @@ const ConnectedWalletView = () => {
           </Alert>
         )}
         {!account && <Button onClick={doActivate}>Connect Wallet</Button>}
-        {connector instanceof StargazerConnector && (
+        {connector instanceof StargazerWeb3ReactConnector && (
           <Accordion>
             <Accordion.Item label="$DAG Accounts">
               <Stack>

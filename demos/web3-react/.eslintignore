@@ -5,3 +5,4 @@ extension/
 .pnp.js
 tests/
 *.text.*
+*.js

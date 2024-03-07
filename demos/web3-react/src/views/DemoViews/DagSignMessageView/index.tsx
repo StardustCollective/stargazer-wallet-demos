@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Textarea, JsonInput} from '@mantine/core';
-import {StargazerConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 
 import {DemoCard} from 'src/common/components';
 import {useWeb3React} from 'src/utils';
@@ -37,7 +37,7 @@ const DagSignMessageView = () => {
     setPublicKey('');
     setError('');
     try {
-      if (connector instanceof StargazerConnector) {
+      if (connector instanceof StargazerWeb3ReactConnector) {
         const signatureRequest = {
           content: value,
           metadata: metadataValue
