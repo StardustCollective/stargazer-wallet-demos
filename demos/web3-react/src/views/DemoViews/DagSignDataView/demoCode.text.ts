@@ -1,5 +1,6 @@
 import {useWeb3React} from '@web3-react/core';
 import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
+import {dag4} from '@stardust-collective/dag4';
 
 const stargazerConnector = new StargazerWeb3ReactConnector({
   supportedChainIds: [
@@ -60,4 +61,12 @@ if (connector instanceof StargazerWeb3ReactConnector) {
 
   // Send your signature trio for further verification
   const payload = {dataEncoded, signature, publicKey};
+
+  // Verify signature using dag4.js
+  // Build the message with prefix
+  const message = `\u0019Constellation Signed Data:\n${dataEncoded.length}\n${dataEncoded}`;
+
+  const result = await dag4.keyStore.verify(publicKey, message, signature);
+  // true -> verification succeeded
+  // false -> verification failed
 }

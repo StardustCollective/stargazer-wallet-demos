@@ -1,4 +1,5 @@
 import {activateStargazerProviders} from 'src/utils';
+import {dag4} from '@stardust-collective/dag4';
 
 const {dagProvider} = await activateStargazerProviders();
 
@@ -43,3 +44,11 @@ const publicKey = await dagProvider.request({
 
 // Send your signature trio for further verification
 const payload = {dataEncoded, signature, publicKey};
+
+// Verify signature using dag4.js
+// Build the message with prefix
+const message = `\u0019Constellation Signed Data:\n${dataEncoded.length}\n${dataEncoded}`;
+
+const result = await dag4.keyStore.verify(publicKey, message, signature);
+// true -> verification succeeded
+// false -> verification failed
