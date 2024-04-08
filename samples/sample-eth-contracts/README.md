@@ -10,18 +10,18 @@ Both contracts were deployed in the [goerli](https://goerli.etherscan.io/) netwo
 
 A pretty simple contract that holds state in the chain.
 
-[Address](https://goerli.etherscan.io/address/0x0F1568746563F6F1A01C76B7cfca4390d81D97b2)
+[Address](https://sepolia.etherscan.io/address/0x74299a718b2c44483a27325d7725f0b2646de3b1)
 
 ```
-0x0F1568746563F6F1A01C76B7cfca4390d81D97b2
+0x74299a718b2c44483a27325d7725f0b2646de3b1
 ```
 
 ## [StargazerToken](./contracts/StargazerToken.sol)
 
 An ERC20 standard token, `mint` and `burn` methods are publicly available.
 
-[Address](https://goerli.etherscan.io/address/0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65)
+[Address](https://sepolia.etherscan.io/address/0xfe9885baff18074846aaa2d5541581adf068731d)
 
 ```
-0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65
+0xfe9885baff18074846aaa2d5541581adf068731d
 ```
