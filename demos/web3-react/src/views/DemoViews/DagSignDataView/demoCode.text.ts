@@ -66,7 +66,7 @@ if (connector instanceof StargazerWeb3ReactConnector) {
   // Build the message with prefix
   const message = `\u0019Constellation Signed Data:\n${dataEncoded.length}\n${dataEncoded}`;
 
-  const result = await dag4.keyStore.verify(publicKey, message, signature);
+  const result = await dag4.keyStore.verifyData(publicKey, message, signature);
   // true -> verification succeeded
   // false -> verification failed
 }
