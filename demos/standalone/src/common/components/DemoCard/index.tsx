@@ -185,9 +185,9 @@ const DemoCard = ({
             ETHEREUM_CHAINS.includes(chainId) &&
             chainId !== ETHEREUM_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-                All demos were designed on the Goerli network, your wallet needs to be on the same
+                All demos were designed on the Sepolia network, your wallet needs to be on the same
                 network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-                Ethereum {'>'} Goerli Testnet.
+                Ethereum {'>'} Sepolia Testnet.
               </Alert>
             )}
           {walletRequired &&

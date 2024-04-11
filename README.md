@@ -24,20 +24,20 @@ yarn start-standalone
 
 ## Ethereum Demos, Chain Preference & Sample Contracts
 
-For ethereum demos we've chosen the goerli testnet for some sample contracts located under [samples/sample-eth-contracts](./samples/sample-eth-contracts). You must use the goerli network when running the demos, doing otherwise will likely throw some errors.
+For ethereum demos we've chosen the sepolia testnet for some sample contracts located under [samples/sample-eth-contracts](./samples/sample-eth-contracts). You must use the sepolia network when running the demos, doing otherwise will likely throw some errors.
 
-Sample contracts used are already deployed in the goerli network at the following addresses.
+Sample contracts used are already deployed in the sepolia network at the following addresses.
 
-#### [StargazerGreeter](https://goerli.etherscan.io/address/0x0F1568746563F6F1A01C76B7cfca4390d81D97b2#code)
-
-```
-0x0F1568746563F6F1A01C76B7cfca4390d81D97b2
-```
-
-#### [StargazerSampleToken (SST)](https://goerli.etherscan.io/address/0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65)
+#### [StargazerGreeter](https://sepolia.etherscan.io/address/0x74299a718b2c44483a27325d7725f0b2646de3b1#code)
 
 ```
-0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65
+0x74299a718b2c44483a27325d7725f0b2646de3b1
+```
+
+#### [StargazerSampleToken (SST)](https://sepolia.etherscan.io/address/0xfe9885baff18074846aaa2d5541581adf068731d)
+
+```
+0xfe9885baff18074846aaa2d5541581adf068731d
 ```
 
 If you want to get creative the [samples/sample-eth-contracts](./samples/sample-eth-contracts) contains a pretty basic [hardhat](https://hardhat.org/) project you can check out.

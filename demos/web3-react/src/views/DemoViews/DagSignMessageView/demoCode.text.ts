@@ -11,7 +11,7 @@ type StargazerDagSignatureRequest = {
 const stargazerConnector = new StargazerWeb3ReactConnector({
   supportedChainIds: [
     1, // Ethereum Mainnet
-    5, // Ethereum Goerli Testnet
+    11155111, // Ethereum Sepolia Testnet
     137, // Polygon Mainnet
     80001, // Polygon Testnet
     56, // BSC Mainnet

@@ -8,11 +8,11 @@ const {ethProvider} = await activateStargazerProviders();
 const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
 
 const STARGAZER_SAMPLE_TOKEN_ADDRESSES = {
-  ethereum: '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65',
+  ethereum: '0xfe9885baff18074846aaa2d5541581adf068731d',
   polygon: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5',
   bsc: '0x3Ea98D16634aB9fD01e7d749a8711736DBE95440',
   avalanche: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2'
-}
+};
 
 const library = new ethers.providers.Web3Provider(ethProvider, 'any');
 
