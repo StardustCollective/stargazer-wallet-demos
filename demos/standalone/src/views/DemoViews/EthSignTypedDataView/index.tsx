@@ -11,7 +11,7 @@ import {STARGAZER_CHAINS} from 'src/utils/constants';
 const STRICT_DOMAIN = {
   name: 'Stargazer Demo',
   version: '1.0.0',
-  chainId: 5,
+  chainId: 11155111,
   verifyingContract: '0xEb14c9bb6C2DEc2eCb9B278C9fa1EC763B04d545'
 };
 
@@ -55,7 +55,7 @@ const EthSignMessageView = () => {
       const {ethProvider} = await stargazerProviders.connect();
 
       const TEST_CHAIN_IDS = {
-        ethereum: 5, // Goerli
+        ethereum: 11155111, // Sepolia
         polygon: 80001, // Polygon testnet
         bsc: 97, // BSC testnet
         avalanche: 43113 // Fuji testnet

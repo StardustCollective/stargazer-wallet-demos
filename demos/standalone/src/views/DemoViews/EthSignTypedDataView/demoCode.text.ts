@@ -6,10 +6,10 @@ const {ethProvider} = await activateStargazerProviders();
 const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 'avalanche'
 
 const TEST_CHAIN_IDS = {
-  ethereum: 5,        // Goerli
-  polygon: 80001,     // Polygon testnet
-  bsc: 97,            // BSC testnet
-  avalanche: 43113    // Fuji testnet
+  ethereum: 11155111, // Sepolia
+  polygon: 80001, // Polygon testnet
+  bsc: 97, // BSC testnet
+  avalanche: 43113 // Fuji testnet
 };
 
 const chainId = TEST_CHAIN_IDS[selectedNetwork];
@@ -18,7 +18,7 @@ const chainId = TEST_CHAIN_IDS[selectedNetwork];
 const domain = {
   name: 'Stargazer Demo',
   version: '1.0.0',
-  chainId, 
+  chainId,
   verifyingContract: '0xabcdefABCDEF1234567890abcdefABCDEF123456'
 };
 

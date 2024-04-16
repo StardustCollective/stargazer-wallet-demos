@@ -2,17 +2,10 @@ import {useWeb3React} from '@web3-react/core';
 import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-stargazer-connector';
 import {dag4} from '@stardust-collective/dag4';
 
-type JSONScalarValue = null | string | number | boolean;
-
-type StargazerDagSignatureRequest = {
-  content: string;
-  metadata: Record<string, JSONScalarValue>;
-};
-
 const stargazerConnector = new StargazerWeb3ReactConnector({
   supportedChainIds: [
     1, // Ethereum Mainnet
-    11155111, // Ethereum Sepolia Testnet
+    5, // Ethereum Goerli Testnet
     137, // Polygon Mainnet
     80001, // Polygon Testnet
     56, // BSC Mainnet
@@ -30,28 +23,35 @@ console.log(Object.is(stargazerConnector, connector));
 
 if (connector instanceof StargazerWeb3ReactConnector) {
   // Build the signature request
-  const signatureRequest: StargazerDagSignatureRequest = {
-    content: 'Sign this message to confirm your participation in this project.',
-    metadata: {
-      field1: 'an-useful-value',
-      field2: 1,
-      field3: null /* ,
-      field4: {
-        // Nested fields are not supported
-        prop:1
-      } */
-    }
+  const data: any = {
+    field1: 'content_field_1',
+    field2: {
+      field2_1: true,
+      field2_2: 12332435,
+      field2_3: {
+        field2_3_1: 'content_field2_3_1'
+        // Nested fields are supported
+      }
+    },
+    field3: [1, 2, 3, 4],
+    field4: null
   };
 
   // Encode the signature request - Base64 < JSON < Request
-  const signatureRequestEnconded = window.btoa(JSON.stringify(signatureRequest));
+  const dataEncoded = window.btoa(JSON.stringify(data));
+
+  // Encode the string directly if "data" is a string:
+  // const data = "This is a custom string.";
+  //
+  //                      Base64 < String
+  // const dataEncoded = window.btoa(data);
 
   // Extract $DAG account 0
   const userAddress = connector.dagAccounts[0];
 
   const signature = await connector.dagProvider.request({
-    method: 'dag_signMessage',
-    params: [userAddress, signatureRequestEnconded]
+    method: 'dag_signData',
+    params: [userAddress, dataEncoded]
   });
 
   const publicKey = await connector.dagProvider.request({
@@ -60,13 +60,13 @@ if (connector instanceof StargazerWeb3ReactConnector) {
   });
 
   // Send your signature trio for further verification
-  const payload = {signatureRequestEnconded, signature};
+  const payload = {dataEncoded, signature, publicKey};
 
   // Verify signature using dag4.js
   // Build the message with prefix
-  const message = `\u0019Constellation Signed Message:\n${signatureRequestEnconded.length}\n${signatureRequestEnconded}`;
+  const message = `\u0019Constellation Signed Data:\n${dataEncoded.length}\n${dataEncoded}`;
 
-  const result = await dag4.keyStore.verify(publicKey, message, signature);
+  const result = await dag4.keyStore.verifyData(publicKey, message, signature);
   // true -> verification succeeded
   // false -> verification failed
 }
