@@ -7,14 +7,14 @@ export enum STARGAZER_CHAINS {
 }
 
 export const STARGAZER_GREETER_ADDRESSES = {
-  ethereum: '0x0F1568746563F6F1A01C76B7cfca4390d81D97b2',
+  ethereum: '0x74299a718b2c44483a27325d7725f0b2646de3b1',
   polygon: '0xce4E723904f5a679eACB9D70710210024F62378C',
   bsc: '0x53c50ceaDc5A97F440608730d7B7D492F628c1cD',
   avalanche: '0xDc9b6Fb047268f673b4b60101A28ceCE50e0e872'
 };
 
 export const STARGAZER_SAMPLE_TOKEN_ADDRESSES = {
-  ethereum: '0x4FD968a301F07dB5Dd22f4f33c0B7f4D0b91AC65',
+  ethereum: '0xfe9885baff18074846aaa2d5541581adf068731d',
   polygon: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5',
   bsc: '0x3Ea98D16634aB9fD01e7d749a8711736DBE95440',
   avalanche: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2'
@@ -23,6 +23,7 @@ export const STARGAZER_SAMPLE_TOKEN_ADDRESSES = {
 export const CHAIN_NAMES = {
   '0x1': 'Ethereum Mainnet',
   '0x5': 'Ethereum Goerli Testnet',
+  '0xaa36a7': 'Ethereum Sepolia Testnet',
   '0x89': 'Polygon Mainnet',
   '0x13881': 'Polygon Testnet',
   '0x38': 'BSC Mainnet',
@@ -34,12 +35,12 @@ export const CHAIN_NAMES = {
 export const STARGAZER_GREETER_STRING = `Ethereum: ${STARGAZER_GREETER_ADDRESSES.ethereum}\nPolygon: ${STARGAZER_GREETER_ADDRESSES.polygon}\nBinance Smart Chain: ${STARGAZER_GREETER_ADDRESSES.bsc}\nAvalanche: ${STARGAZER_GREETER_ADDRESSES.avalanche}\n`;
 export const STARGAZER_TOKEN_STRING = `Ethereum: ${STARGAZER_SAMPLE_TOKEN_ADDRESSES.ethereum}\nPolygon: ${STARGAZER_SAMPLE_TOKEN_ADDRESSES.polygon}\nBinance Smart Chain: ${STARGAZER_SAMPLE_TOKEN_ADDRESSES.bsc}\nAvalanche: ${STARGAZER_SAMPLE_TOKEN_ADDRESSES.avalanche}\n`;
 
-export const ETHEREUM_TESTNET = '0x5';
+export const ETHEREUM_TESTNET = '0xaa36a7';
 export const POLYGON_TESTNET = '0x13881';
 export const BSC_TESTNET = '0x61';
 export const AVALANCHE_TESTNET = '0xa869';
 
-export const ETHEREUM_CHAINS = ['0x1', '0x5'];
+export const ETHEREUM_CHAINS = ['0x1', '0x5', '0xaa36a7'];
 export const POLYGON_CHAINS = ['0x89', '0x13881'];
 export const BSC_CHAINS = ['0x38', '0x61'];
 export const AVALANCHE_CHAINS = ['0xa86a', '0xa869'];
@@ -52,7 +53,7 @@ export const CHAINS_MAP = {
 };
 
 export const HEX_CHAINS_MAP = {
-  [STARGAZER_CHAINS.ETHEREUM]: '0x5',
+  [STARGAZER_CHAINS.ETHEREUM]: '0xaa36a7',
   [STARGAZER_CHAINS.POLYGON]: '0x13881',
   [STARGAZER_CHAINS.BSC]: '0x61',
   [STARGAZER_CHAINS.AVALANCHE]: '0xa869'

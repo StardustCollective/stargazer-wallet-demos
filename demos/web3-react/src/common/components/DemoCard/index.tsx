@@ -13,6 +13,7 @@ import {NetworkContext} from 'src/App';
 const CHAIN_NAMES = {
   1: 'Ethereum Mainnet',
   5: 'Ethereum Goerli Testnet',
+  11155111: 'Ethereum Sepolia Testnet',
   137: 'Polygon Mainnet',
   80001: 'Polygon Testnet',
   56: 'BSC Mainnet',
@@ -75,11 +76,11 @@ const DemoCard = ({
             selectedChain === STARGAZER_CHAINS.ETHEREUM &&
             typeof chainId === 'number' &&
             expectedChains.includes(chainId) &&
-            chainId !== 5 && (
+            chainId !== 11155111 && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-                All demos were designed on the Goerli network, your wallet needs to be on the same
+                All demos were designed on the Sepolia network, your wallet needs to be on the same
                 network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-                Ethereum {'>'} Goerli Testnet.
+                Ethereum {'>'} Sepolia Testnet.
               </Alert>
             )}
           {walletRequired &&
@@ -145,7 +146,7 @@ const DemoCard = ({
               (walletRequired &&
                 !isDAGdemo &&
                 selectedChain === STARGAZER_CHAINS.ETHEREUM &&
-                chainId !== 5) ||
+                chainId !== 11155111) ||
               (walletRequired &&
                 !isDAGdemo &&
                 selectedChain === STARGAZER_CHAINS.POLYGON &&
