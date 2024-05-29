@@ -7,7 +7,7 @@ const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 
 
 const TEST_CHAIN_IDS = {
   ethereum: 11155111, // Sepolia
-  polygon: 80001, // Polygon testnet
+  polygon: 80002, // Polygon Amoy testnet
   bsc: 97, // BSC testnet
   avalanche: 43113 // Fuji testnet
 };

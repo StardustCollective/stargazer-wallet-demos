@@ -197,9 +197,9 @@ const DemoCard = ({
             POLYGON_CHAINS.includes(chainId) &&
             chainId !== POLYGON_TESTNET && (
               <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-                All demos were designed on the Polygon Testnet network, your wallet needs to be on
-                the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
-                {'>'} Polygon {'>'} Polygon Testnet.
+                All demos were designed on the Polygon Amoy Testnet network, your wallet needs to be
+                on the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+                {'>'} Polygon {'>'} Polygon Amoy Testnet.
               </Alert>
             )}
           {walletRequired &&
