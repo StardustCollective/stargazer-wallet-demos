@@ -48,7 +48,8 @@ const SUPPORTED_CHAINS = {
 
 const DAG_CHAIN_NAMES = {
   1: 'Constellation Mainnet 2.0',
-  3: 'Constellation Testnet 2.0'
+  3: 'Constellation Testnet 2.0',
+  4: 'Constellation IntegrationNet 2.0'
 };
 
 const ConnectedWalletView = () => {
