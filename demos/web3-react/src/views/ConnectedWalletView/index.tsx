@@ -63,10 +63,8 @@ const ConnectedWalletView = () => {
   const doActivate = async () => {
     setLoading(true);
     try {
-      console.log('activate', window.stargazer);
       await activate(stargazerConnector, undefined, true);
     } catch (e) {
-      console.log('Entre error');
       if (e instanceof Error && /providers are not available/i.test(e.message)) {
         setError('Seems Stargazer is not installed or available');
       }
