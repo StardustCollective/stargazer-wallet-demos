@@ -32,7 +32,7 @@ const CHAIN_NAMES = {
   5: 'Ethereum Goerli Testnet',
   11155111: 'Ethereum Sepolia Testnet',
   137: 'Polygon Mainnet',
-  80001: 'Polygon Testnet',
+  80002: 'Polygon Amoy Testnet',
   56: 'BSC Mainnet',
   97: 'BSC Testnet',
   43114: 'Avalanche C-Chain',
@@ -41,14 +41,15 @@ const CHAIN_NAMES = {
 
 const SUPPORTED_CHAINS = {
   11155111: 'Ethereum Sepolia Testnet',
-  80001: 'Polygon Testnet',
+  80002: 'Polygon Amoy Testnet',
   97: 'BSC Testnet',
   43113: 'Avalanche Fuji Testnet'
 };
 
 const DAG_CHAIN_NAMES = {
   1: 'Constellation Mainnet 2.0',
-  3: 'Constellation Testnet 2.0'
+  3: 'Constellation Testnet 2.0',
+  4: 'Constellation IntegrationNet 2.0'
 };
 
 const ConnectedWalletView = () => {
@@ -154,11 +155,11 @@ const ConnectedWalletView = () => {
           selectedChain === STARGAZER_CHAINS.POLYGON &&
           typeof chainId === 'number' &&
           expectedChains.includes(chainId) &&
-          chainId !== 80001 && (
+          chainId !== 80002 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-              All demos were designed on the Polygon Testnet network, your wallet needs to be on the
-              same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-              Polygon {'>'} Polygon Testnet.
+              All demos were designed on the Polygon Amoy Testnet network, your wallet needs to be
+              on the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+              {'>'} Polygon {'>'} Polygon Amoy Testnet.
             </Alert>
           )}
         {account &&
