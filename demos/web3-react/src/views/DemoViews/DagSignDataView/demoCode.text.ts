@@ -7,7 +7,7 @@ const stargazerConnector = new StargazerWeb3ReactConnector({
     1, // Ethereum Mainnet
     5, // Ethereum Goerli Testnet
     137, // Polygon Mainnet
-    80001, // Polygon Testnet
+    80002, // Polygon Amoy Testnet
     56, // BSC Mainnet
     97, // BSC Testnet
     43114, // Avalanche C-Chain

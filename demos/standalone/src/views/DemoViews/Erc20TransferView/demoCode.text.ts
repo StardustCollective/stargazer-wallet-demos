@@ -9,7 +9,7 @@ const selectedNetwork: string = 'ethereum'; // 'ethereum' | 'polygon' | 'bsc' | 
 
 const STARGAZER_SAMPLE_TOKEN_ADDRESSES = {
   ethereum: '0xfe9885baff18074846aaa2d5541581adf068731d',
-  polygon: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5',
+  polygon: '0xee18612b447599dBCA118443ACB99C77e765FCB6',
   bsc: '0x3Ea98D16634aB9fD01e7d749a8711736DBE95440',
   avalanche: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2'
 };
