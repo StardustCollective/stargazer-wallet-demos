@@ -8,7 +8,7 @@ const {library, chainId} = useWeb3React();
 
 export const STARGAZER_TOKEN_ADDRESSES = {
   11155111: '0xfe9885baff18074846aaa2d5541581adf068731d', // Ethereum Sepolia Testnet
-  80001: '0x9994a07DD7Aa25388B3A73151EDfAf6B3d8d06D5', // Polygon Testnet
+  80002: '0xee18612b447599dBCA118443ACB99C77e765FCB6', // Polygon Amoy Testnet
   97: '0x3Ea98D16634aB9fD01e7d749a8711736DBE95440', // BSC Testnet
   43113: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2' // Avalanche Fuji Testnet
 };
