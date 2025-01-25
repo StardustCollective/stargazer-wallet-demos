@@ -195,16 +195,16 @@ const ConnectedWalletView = () => {
           )}
         {account && dagChainId && (
           <Center>
-            <Badge variant="light" color={dagChainId === 3 ? 'green' : 'yellow'}>
+            <Badge variant="light" color={dagChainId === 4 ? 'green' : 'yellow'}>
               {DAG_CHAIN_NAMES[dagChainId] ?? 'Unknown Chain Id'}
             </Badge>
           </Center>
         )}
-        {account && typeof dagChainId === 'number' && dagChainId !== 3 && (
+        {account && typeof dagChainId === 'number' && dagChainId !== 4 && (
           <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-            All demos were designed on the Testnet 2.0 network, your wallet needs to be on the same
-            network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-            Constellation {'>'} Testnet 2.0.
+            All demos were designed on the IntegrationNet network, your wallet needs to be on the
+            same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
+            Constellation {'>'} IntegrationNet.
           </Alert>
         )}
         {account && (
