@@ -236,11 +236,11 @@ const DemoCard = ({
                 selected EVM network is different.
               </Alert>
             )}
-          {walletRequired && isDAGdemo && dagChainId !== 0 && dagChainId !== 3 && (
+          {walletRequired && isDAGdemo && dagChainId !== 0 && dagChainId !== 4 && (
             <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
-              All demos were designed on the Testnet 2.0 network, your wallet needs to be on the
+              All demos were designed on the IntegrationNet network, your wallet needs to be on the
               same network for executing them. On Stargazer {'>'} Settings {'>'} Networks {'>'}{' '}
-              Constellation {'>'} Testnet 2.0.
+              Constellation {'>'} IntegrationNet.
             </Alert>
           )}
           <Button
@@ -261,7 +261,7 @@ const DemoCard = ({
                 !isDAGdemo &&
                 selectedChain === STARGAZER_CHAINS.AVALANCHE &&
                 chainId !== AVALANCHE_TESTNET) ||
-              (walletRequired && isDAGdemo && dagChainId !== 3) ||
+              (walletRequired && isDAGdemo && dagChainId !== 4) ||
               (walletRequired && !stargazerProviders.connected) ||
               isLoading ||
               stargazerProviders.loading
