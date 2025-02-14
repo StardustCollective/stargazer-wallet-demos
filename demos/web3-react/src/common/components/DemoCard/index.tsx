@@ -19,7 +19,9 @@ const CHAIN_NAMES = {
   56: 'BSC Mainnet',
   97: 'BSC Testnet',
   43114: 'Avalanche C-Chain',
-  43113: 'Avalanche Fuji Testnet'
+  43113: 'Avalanche Fuji Testnet',
+  8453: 'Base Mainnet',
+  84532: 'Base Sepolia Testnet'
 };
 
 const DemoCard = ({
@@ -121,6 +123,18 @@ const DemoCard = ({
             )}
           {walletRequired &&
             !isDAGdemo &&
+            selectedChain === STARGAZER_CHAINS.BASE &&
+            typeof chainId === 'number' &&
+            expectedChains.includes(chainId) &&
+            chainId !== 84532 && (
+              <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+                All demos were designed on the Base Sepolia Testnet network, your wallet needs to be
+                on the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+                {'>'} Base {'>'} Base Sepolia Testnet.
+              </Alert>
+            )}
+          {walletRequired &&
+            !isDAGdemo &&
             EVM_CHAINS.includes(selectedChain) &&
             typeof chainId === 'number' &&
             !expectedChains.includes(chainId) && (
@@ -159,6 +173,10 @@ const DemoCard = ({
                 !isDAGdemo &&
                 selectedChain === STARGAZER_CHAINS.AVALANCHE &&
                 chainId !== 43113) ||
+              (walletRequired &&
+                !isDAGdemo &&
+                selectedChain === STARGAZER_CHAINS.BASE &&
+                chainId !== 84532) ||
               (walletRequired && isDAGdemo && dagChainId !== 4) ||
               (walletRequired && !account) ||
               isLoading

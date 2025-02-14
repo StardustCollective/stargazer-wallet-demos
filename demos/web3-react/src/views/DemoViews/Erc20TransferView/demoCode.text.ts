@@ -10,7 +10,8 @@ export const STARGAZER_TOKEN_ADDRESSES = {
   11155111: '0xfe9885baff18074846aaa2d5541581adf068731d', // Ethereum Sepolia Testnet
   80002: '0xee18612b447599dBCA118443ACB99C77e765FCB6', // Polygon Amoy Testnet
   97: '0x3Ea98D16634aB9fD01e7d749a8711736DBE95440', // BSC Testnet
-  43113: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2' // Avalanche Fuji Testnet
+  43113: '0x34f4B6A6D99Ab084EC656DCba0a10468a086CCd2', // Avalanche Fuji Testnet
+  84532: '0x7c9ab606354177c3c365a54392f94f10581e5926' // Base Sepolia Testnet
 };
 
 if (library instanceof ethers.providers.Web3Provider) {
