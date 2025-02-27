@@ -58,7 +58,8 @@ const EthSignMessageView = () => {
         ethereum: 11155111, // Sepolia
         polygon: 80002, // Polygon Amoy testnet
         bsc: 97, // BSC testnet
-        avalanche: 43113 // Fuji testnet
+        avalanche: 43113, // Fuji testnet
+        base: 84532 // Base Sepolia Testnet
       };
 
       const accounts = await ethProvider.request({method: 'eth_accounts', params: []});
