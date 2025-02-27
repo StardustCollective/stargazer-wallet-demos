@@ -36,14 +36,17 @@ const CHAIN_NAMES = {
   56: 'BSC Mainnet',
   97: 'BSC Testnet',
   43114: 'Avalanche C-Chain',
-  43113: 'Avalanche Fuji Testnet'
+  43113: 'Avalanche Fuji Testnet',
+  8453: 'Base Mainnet',
+  84532: 'Base Sepolia Testnet'
 };
 
 const SUPPORTED_CHAINS = {
   11155111: 'Ethereum Sepolia Testnet',
   80002: 'Polygon Amoy Testnet',
   97: 'BSC Testnet',
-  43113: 'Avalanche Fuji Testnet'
+  43113: 'Avalanche Fuji Testnet',
+  84532: 'Base Sepolia Testnet'
 };
 
 const DAG_CHAIN_NAMES = {
@@ -185,6 +188,17 @@ const ConnectedWalletView = () => {
             </Alert>
           )}
         {account &&
+          selectedChain === STARGAZER_CHAINS.BASE &&
+          typeof chainId === 'number' &&
+          expectedChains.includes(chainId) &&
+          chainId !== 84532 && (
+            <Alert icon={<AlertCircle size={16} />} title="Unsupported Chain" color="yellow">
+              All demos were designed on the Base Sepolia Testnet network, your wallet needs to be
+              on the same network for executing them. On Stargazer {'>'} Settings {'>'} Networks{' '}
+              {'>'} Base {'>'} Base Sepolia Testnet.
+            </Alert>
+          )}
+        {account &&
           EVM_CHAINS.includes(selectedChain) &&
           typeof chainId === 'number' &&
           !expectedChains.includes(chainId) && (
@@ -216,7 +230,8 @@ const ConnectedWalletView = () => {
                 {label: 'Ethereum', value: STARGAZER_CHAINS.ETHEREUM},
                 {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON},
                 {label: 'Binance Smart Chain', value: STARGAZER_CHAINS.BSC},
-                {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE}
+                {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE},
+                {label: 'Base', value: STARGAZER_CHAINS.BASE}
               ]}
               onChange={switchChain}
               styles={() => ({

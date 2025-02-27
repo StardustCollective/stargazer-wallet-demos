@@ -18,7 +18,9 @@ const stargazerConnector = new StargazerWeb3ReactConnector({
     56, // BSC Mainnet
     97, // BSC Testnet
     43114, // Avalanche C-Chain
-    43113 // Avalanche Fuji Testnet
+    43113, // Avalanche Fuji Testnet
+    8453, // Base Mainnet
+    84532 // Base Sepolia Testnet
   ]
 });
 

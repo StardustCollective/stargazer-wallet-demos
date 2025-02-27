@@ -167,7 +167,8 @@ const DemoCard = ({
                   {label: 'Ethereum', value: STARGAZER_CHAINS.ETHEREUM},
                   {label: 'Polygon', value: STARGAZER_CHAINS.POLYGON},
                   {label: 'Binance Smart Chain', value: STARGAZER_CHAINS.BSC},
-                  {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE}
+                  {label: 'Avalanche', value: STARGAZER_CHAINS.AVALANCHE},
+                  {label: 'Base', value: STARGAZER_CHAINS.BASE}
                 ]}
                 onChange={switchChain}
                 styles={() => ({
