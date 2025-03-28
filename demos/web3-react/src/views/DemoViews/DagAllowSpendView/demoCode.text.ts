@@ -43,7 +43,7 @@ if (connector instanceof StargazerWeb3ReactConnector) {
     destination: 'DAG7WxrQKqGnB8JEHWKWBHGraFcTk4kB8Si5ags9',
     approvers: ['DAG7WxrQKqGnB8JEHWKWBHGraFcTk4kB8Si5ags9'],
     amount: 100000000, // In DATUM
-    fee: 1000000, // In DATUM
+    fee: 0, // In DATUM
     currencyId: 'DAG2jMUs8iRyBnKB6wT6sperwEdXLWURfkbYEevV',
     validUntilEpoch: 123456 // Example epoch number
   };

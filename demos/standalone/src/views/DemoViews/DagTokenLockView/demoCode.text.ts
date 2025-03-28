@@ -17,7 +17,7 @@ type TokenLockParams = {
   // Must be in DATUM
 
   unlockEpoch?: number; // The global snapshot epoch progress to unlock the tokens
-  // Must be greater than the currentEpoch
+  // If provided, must be greater than the currentEpoch
 };
 
 // Activate Stargazer providers
@@ -31,7 +31,7 @@ const userAddress = dagAccounts[0];
 const tokenLockParams: TokenLockParams = {
   source: userAddress,
   amount: 100000000, // In DATUM
-  fee: 1000000, // In DATUM
+  fee: 0, // In DATUM
   currencyId: 'DAG2jMUs8iRyBnKB6wT6sperwEdXLWURfkbYEevV',
   unlockEpoch: 123456 // Example epoch number
 };
