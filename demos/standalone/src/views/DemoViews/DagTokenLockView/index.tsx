@@ -31,8 +31,8 @@ const DagTokenLockView = () => {
         source: sourceAddress,
         amount,
         fee,
-        ...(currencyId ? {currencyId} : {}),
-        ...(unlockEpoch > 0 && {unlockEpoch})
+        currencyId: currencyId || null,
+        unlockEpoch: unlockEpoch || null
       };
 
       const transactionHash = await dagProvider.request({
@@ -52,7 +52,7 @@ const DagTokenLockView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Token Lock"
+      title="DAG - Token Lock"
       codeExample={demoCodeText}
       actionButtonClickContent="Lock Tokens"
       onActionButtonClick={doTokenLock}

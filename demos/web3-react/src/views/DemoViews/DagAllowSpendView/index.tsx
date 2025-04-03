@@ -40,7 +40,7 @@ const DagAllowSpendView = () => {
           approvers: approversList,
           amount,
           fee,
-          ...(currencyId ? {currencyId} : {}),
+          currencyId: currencyId || null,
           ...(validUntilEpoch ? {validUntilEpoch} : {})
         };
 
@@ -62,7 +62,7 @@ const DagAllowSpendView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Allow Spend"
+      title="DAG - Allow Spend"
       codeExample={demoCodeText}
       actionButtonClickContent="Allow Spend"
       onActionButtonClick={doAllowSpend}

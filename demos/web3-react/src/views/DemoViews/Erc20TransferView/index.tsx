@@ -69,7 +69,7 @@ const Erc20TransferView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ERC20 - Transfer"
+      title="EVM - Transfer (ERC-20)"
       codeExample={demoCodeText}
       actionButtonClickContent="Transfer ERC20"
       onActionButtonClick={doTransfer}

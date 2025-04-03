@@ -52,7 +52,7 @@ const DagDelegatedStakeView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Delegated Stake"
+      title="DAG - Delegated Stake"
       codeExample={demoCodeText}
       actionButtonClickContent="Delegate Stake"
       onActionButtonClick={doDelegatedStake}

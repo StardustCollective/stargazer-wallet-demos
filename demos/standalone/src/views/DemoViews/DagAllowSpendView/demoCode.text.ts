@@ -16,8 +16,8 @@ type AllowSpendParams = {
   approvers: string[]; // A list of DAG addresses which can atomically approve this operation
   // Can be metagraph or wallet addresses
 
-  currencyId?: string; // The currency metagraph identifier
-  // If not provided, the default currency will be DAG
+  currencyId: string | null; // The currency metagraph identifier
+  // For DAG, this should be null
 
   fee?: number; // The fee in the currency of the currency metragraph (or DAG)
   // If not provided, the default fee will be 0

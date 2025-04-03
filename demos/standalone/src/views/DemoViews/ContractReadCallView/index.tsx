@@ -52,7 +52,7 @@ const ContractReadCallView = () => {
   return (
     <DemoCard
       walletRequired
-      title="Smart Contract - Read Call"
+      title="EVM - Smart Contract - Read Call"
       codeExample={demoCodeText}
       actionButtonClickContent="Send Read Call"
       onActionButtonClick={doReadCall}

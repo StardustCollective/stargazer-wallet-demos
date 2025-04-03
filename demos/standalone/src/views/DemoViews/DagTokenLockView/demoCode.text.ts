@@ -9,14 +9,14 @@ type TokenLockParams = {
   amount: number; // The amount to lock
   // Must be in DATUM
 
-  currencyId?: string; // The currency metagraph identifier that the user wants to lock
-  // If not provided, the default currency will be DAG
+  currencyId: string | null; // The currency metagraph identifier that the user wants to lock
+  // For DAG, this should be null
 
   fee?: number; // The fee in the currency of the currency metragraph (or DAG)
   // If not provided, the default fee will be 0
   // Must be in DATUM
 
-  unlockEpoch?: number; // The global snapshot epoch progress to unlock the tokens
+  unlockEpoch: number | null; // The global snapshot epoch progress to unlock the tokens
   // If provided, must be greater than the currentEpoch
 };
 

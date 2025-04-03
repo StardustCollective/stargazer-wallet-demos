@@ -46,7 +46,7 @@ const DagWithdrawDelegatedStakeView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Withdraw Delegated Stake"
+      title="DAG - Withdraw Delegated Stake"
       codeExample={demoCodeText}
       actionButtonClickContent="Withdraw DelegatedStake"
       onActionButtonClick={doWithdrawDelegatedStake}
