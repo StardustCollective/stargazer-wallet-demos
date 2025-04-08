@@ -4,20 +4,20 @@ import {activateStargazerProviders} from 'src/utils';
  * Delegated Stake Parameters Interface
  */
 type DelegatedStakeParams = {
-  source: string; // Wallet address signing the transaction
+  /** Wallet address signing the transaction */
+  source: string;
 
-  nodeId: string; // The node identifier to delegate stake to
-  // Must be a valid node ID
+  /** The node identifier to delegate stake to. Must be a valid node ID */
+  nodeId: string;
 
-  amount: number; // The amount to stake
-  // Must be in DATUM
+  /** The amount to stake. Must be in DATUM */
+  amount: number;
 
-  fee?: number; // The fee in DATUM
-  // If not provided, the default fee will be 0
-  // Must be in DATUM
+  /** The fee in DATUM. If not provided, the default fee will be 0. Must be in DATUM */
+  fee?: number;
 
-  tokenLockRef: string; // Reference to the token lock transaction
-  // Must be a valid token lock transaction hash
+  /** Reference to the token lock transaction. Must be a valid token lock transaction hash */
+  tokenLockRef: string;
 };
 
 // Activate Stargazer providers

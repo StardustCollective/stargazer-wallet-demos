@@ -13,8 +13,11 @@ const data = {
 
 // Response type
 type SendDataFeeResponse = {
-  hash: string; // The transaction hash
-  feeHash?: string; // Optional fee transaction hash
+  /** The transaction hash */
+  hash: string;
+
+  /** Optional fee transaction hash */
+  feeHash?: string;
 };
 
 // Send the metagraph data transaction

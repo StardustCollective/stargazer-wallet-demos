@@ -5,10 +5,11 @@ import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-starg
  * Withdraw Delegated Stake Parameters Interface
  */
 type WithdrawDelegatedStakeParams = {
-  source: string; // Wallet address signing the transaction
+  /** Wallet address signing the transaction */
+  source: string;
 
-  stakeRef: string; // Reference to the delegated stake transaction
-  // Must be a valid delegated stake transaction hash
+  /** Reference to the delegated stake transaction. Must be a valid delegated stake transaction hash */
+  stakeRef: string;
 };
 
 // Once activated

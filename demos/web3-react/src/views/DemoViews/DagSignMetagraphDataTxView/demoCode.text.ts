@@ -4,6 +4,21 @@ import {StargazerWeb3ReactConnector} from '@stardust-collective/web3-react-starg
 // Once activated
 const {connector} = useWeb3React();
 
+// Response type
+type SignDataFeeResponse = {
+  /** The transaction hash */
+  hash: string;
+
+  /** Optional fee transaction hash */
+  feeHash?: string;
+
+  /** The transaction signature */
+  signature: string;
+
+  /** Optional fee transaction signature */
+  feeSignature?: string;
+};
+
 if (connector instanceof StargazerWeb3ReactConnector) {
   // Prepare the metagraph address and data
   const metagraphAddress = 'DAG0CyySf35ftDQDQBnd1bdQ9aPyUdacMghpnCuM';
@@ -14,7 +29,7 @@ if (connector instanceof StargazerWeb3ReactConnector) {
   };
 
   // Sign the metagraph data transaction
-  const response = await connector.dagProvider.request({
+  const response: SignDataFeeResponse = await connector.dagProvider.request({
     method: 'dag_signMetagraphDataTransaction',
     params: [metagraphAddress, data]
   });

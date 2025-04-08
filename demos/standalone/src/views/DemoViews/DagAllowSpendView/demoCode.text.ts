@@ -5,28 +5,31 @@ import {activateStargazerProviders} from 'src/utils';
  */
 
 type AllowSpendParams = {
-  source: string; // Wallet address signing the transaction
+  /** Wallet address signing the transaction */
+  source: string;
 
-  destination: string; // The destination address
-  // Can be a metagraph or wallet address
+  /** The destination address. Can be a metagraph or wallet address */
+  destination: string;
 
-  amount: number; // The amount to allow spend
-  // Must be in DATUM
+  /** The amount to allow spend. Must be in DATUM */
+  amount: number;
 
-  approvers: string[]; // A list of DAG addresses which can atomically approve this operation
-  // Can be metagraph or wallet addresses
+  /** A list of DAG addresses which can atomically approve this operation. Can be metagraph or wallet addresses */
+  approvers: string[];
 
-  currencyId: string | null; // The currency metagraph identifier
-  // For DAG, this should be null
+  /** The currency metagraph identifier. For DAG, this should be null */
+  currencyId: string | null;
 
-  fee?: number; // The fee in the currency of the currency metragraph (or DAG)
-  // If not provided, the default fee will be 0
-  // Must be in DATUM
+  /** The fee in the currency of the currency metragraph (or DAG). If not provided, the default fee will be 0. Must be in DATUM */
+  fee?: number;
 
-  validUntilEpoch?: number; // The global snapshot epoch progress for which this is valid until
-  // If not provided, the default value will be currentEpoch + 30
-  // Minumum allowed value: currentEpoch + 5
-  // Maximum allowed value: currentEpoch + 60
+  /** The global snapshot epoch progress for which this is valid until. If not provided, the default value will be currentEpoch + 30.
+   *
+   * Minimum allowed value: currentEpoch + 5.
+   *
+   * Maximum allowed value: currentEpoch + 60
+   **/
+  validUntilEpoch?: number;
 };
 
 // Activate Stargazer providers

@@ -13,10 +13,17 @@ const data = {
 
 // Response type
 type SignDataFeeResponse = {
-  hash: string; // The transaction hash
-  feeHash?: string; // Optional fee transaction hash
-  signature: string; // The transaction signature
-  feeSignature?: string; // Optional fee transaction signature
+  /** The transaction hash */
+  hash: string;
+
+  /** Optional fee transaction hash */
+  feeHash?: string;
+
+  /** The transaction signature */
+  signature: string;
+
+  /** Optional fee transaction signature */
+  feeSignature?: string;
 };
 
 // Sign the metagraph data transaction

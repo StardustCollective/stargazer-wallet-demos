@@ -4,20 +4,20 @@ import {activateStargazerProviders} from 'src/utils';
  * Token Lock Parameters Interface
  */
 type TokenLockParams = {
-  source: string; // Wallet address signing the transaction
+  /** Wallet address signing the transaction */
+  source: string;
 
-  amount: number; // The amount to lock
-  // Must be in DATUM
+  /** The amount to lock. Must be in DATUM */
+  amount: number;
 
-  currencyId: string | null; // The currency metagraph identifier that the user wants to lock
-  // For DAG, this should be null
+  /** The currency metagraph identifier that the user wants to lock. For DAG, this should be null */
+  currencyId: string | null;
 
-  fee?: number; // The fee in the currency of the currency metragraph (or DAG)
-  // If not provided, the default fee will be 0
-  // Must be in DATUM
+  /** The fee in the currency of the currency metragraph (or DAG). If not provided, the default fee will be 0. Must be in DATUM */
+  fee?: number;
 
-  unlockEpoch: number | null; // The global snapshot epoch progress to unlock the tokens
-  // If provided, must be greater than the currentEpoch
+  /** The global snapshot epoch progress to unlock the tokens. If provided, must be greater than the currentEpoch */
+  unlockEpoch: number | null;
 };
 
 // Activate Stargazer providers
