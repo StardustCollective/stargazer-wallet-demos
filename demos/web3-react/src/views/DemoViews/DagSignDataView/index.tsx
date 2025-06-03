@@ -94,7 +94,7 @@ const DagSignDataView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Sign Data"
+      title="DAG - Sign Data"
       codeExample={demoCodeText}
       actionButtonClickContent="Sign Data"
       onActionButtonClick={doSignData}

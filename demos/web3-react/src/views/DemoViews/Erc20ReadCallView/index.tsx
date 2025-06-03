@@ -50,7 +50,7 @@ const Erc20ReadCallView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ERC20 - Read Call"
+      title="EVM - Read Call (ERC-20)"
       codeExample={demoCodeText}
       actionButtonClickContent="Send Read Call"
       onActionButtonClick={doReadCall}

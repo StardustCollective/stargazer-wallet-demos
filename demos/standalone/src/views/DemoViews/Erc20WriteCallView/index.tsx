@@ -68,7 +68,7 @@ const Erc20WriteCallView = () => {
   return (
     <DemoCard
       walletRequired
-      title="ERC20 - Write Call"
+      title="EVM - Write Call (ERC-20)"
       codeExample={demoCodeText}
       actionButtonClickContent="Send Write Call"
       onActionButtonClick={doWriteCall}

@@ -87,7 +87,7 @@ const DagTransferView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Transfer"
+      title="DAG - Transfer"
       codeExample={demoCodeText}
       actionButtonClickContent="Transfer DAG"
       onActionButtonClick={doTransfer}
