@@ -71,7 +71,7 @@ const DagSignMessageView = () => {
   return (
     <DemoCard
       walletRequired
-      title="$DAG - Sign Message"
+      title="DAG - Sign Message"
       codeExample={demoCodeText}
       actionButtonClickContent="Sign Message"
       onActionButtonClick={doSignMessage}

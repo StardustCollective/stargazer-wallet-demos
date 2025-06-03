@@ -76,7 +76,7 @@ const ContractWriteCallView = () => {
   return (
     <DemoCard
       walletRequired
-      title="Smart Contract - Write Call"
+      title="EVM - Smart Contract - Write Call"
       codeExample={demoCodeText}
       actionButtonClickContent="Send Write Call"
       onActionButtonClick={doWriteCall}
